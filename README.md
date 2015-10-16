@@ -9,9 +9,6 @@ This repo was inspired by the following projects and their authors
 * [react-kickstart](https://github.com/vesparny/react-kickstart) by [Alessandro Arnodo](https://github.com/vesparny)
 * [react-isomorphic-starterkit](https://github.com/RickWong/react-isomorphic-starterkit) by [RickWong](https://github.com/RickWong)
 * [react-transform](https://github.com/gaearon/react-transform) by [Dan Abramov](https://github.com/gaearon)
-
-and
-
 * [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate) by [Christian Alfoni](https://github.com/christianalfoni)
 
 ##Features
@@ -40,9 +37,15 @@ and
     npm run prod
 
 ##Todo
+**Basic**
 * add redux
 * Testing
 * Linting
+
+**Advanced**
+* add redis
+* add socketio
+* add authentication
 
 ## License 
 MIT
