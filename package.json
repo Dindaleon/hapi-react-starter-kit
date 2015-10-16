@@ -1,0 +1,73 @@
+{
+  "name": "hapi-react-starter-kit",
+  "version": "0.0.1",
+  "description": "A hapi React Starter kit with react-router, redux, react-transform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf ./static/assets",
+    "start": "node index.js",
+    "dev": "SET NODE_ENV=development&& npm start",
+    "prod": "SET NODE_ENV=production&& SET PORT=8080&& npm start",
+    "build": "rimraf ./static/assets && webpack -p --progress --stats --config ./webpack/prod.config.js",
+    "postinstall": "npm run build"
+  },
+  "author": "Dindaleon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dindaleon/hapi-react-starter-kit.git"
+  },
+  "homepage": "https://github.com/Dindaleon/hapi-react-starter-kit",
+  "keywords": [
+  	"hapi",
+    "react",
+    "reactjs",
+    "react-router",
+    "es6",
+    "boilerplate",
+    "starterkit",
+    "isomorphic",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "webpack",
+    "openshift"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "h2o2": "^4.0.1",
+    "hapi": "^10.4.1",
+    "history": "^1.12.5",
+    "inert": "^3.1.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0-rc3",
+    "react-transmit": "^3.0.7"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-react-transform": "^1.1.1",
+    "chalk": "^1.1.1",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "hapi-webpack-plugin": "^1.2.1",
+    "json-loader": "^0.5.3",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "^1.1.1",
+    "rimraf": "^2.4.3",
+    "stats-webpack-plugin": "^0.2.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.4.1"
+  },
+  "engines": {
+    "node": ">= 4.1.1",
+    "npm": ">= 1.0.0"
+  },
+  "private": true,
+  "main": "index.js"
+}
