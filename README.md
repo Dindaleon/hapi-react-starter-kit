@@ -1,7 +1,7 @@
 # hapi-react-starter-kit
 A hapi React Starter kit with react-router, redux, react-transform
 
-Light and fast - Don't be sad, be hapi!
+_Light and fast - Don't be sad, be hapi!_
 
 **Inspired by**
 
@@ -9,7 +9,9 @@ This repo was inspired by the following projects and their authors
 * [react-kickstart](https://github.com/vesparny/react-kickstart) by [Alessandro Arnodo](https://github.com/vesparny)
 * [react-isomorphic-starterkit](https://github.com/RickWong/react-isomorphic-starterkit) by [RickWong](https://github.com/RickWong)
 * [react-transform](https://github.com/gaearon/react-transform) by [Dan Abramov](https://github.com/gaearon)
+
 and
+
 * [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate) by [Christian Alfoni](https://github.com/christianalfoni)
 
 ##Features
