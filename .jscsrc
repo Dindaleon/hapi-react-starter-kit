@@ -27,10 +27,8 @@
   "requireSpacesInsideParenthesizedExpression": {
     "allExcept": [ "{", "}", "(", ")", "function" ]
   },
-  "requireSpacesInsideBrackets": {
-    "allExcept": [ "[", "]", "{", "}" ]
-  },
-
+  "requireSpacesInsideBrackets": false,
+  "requireSpacesInsideArrayBrackets": all,
   "disallowMultipleVarDecl": "exceptUndefined",
   "requireBlocksOnNewline": 1,
   "disallowPaddingNewlinesInBlocks": true,

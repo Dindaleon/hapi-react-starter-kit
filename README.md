@@ -1,6 +1,10 @@
 # hapi-react-starter-kit
 A hapi React Starter kit with react-router, redux, react-transform
 
+[![Build Status](https://travis-ci.org/Dindaleon/hapi-react-starter-kit.svg)](https://travis-ci.org/Dindaleon/hapi-react-starter-kit)
+[![Dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit "Dependency status")
+[![Dev dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit/dev-status.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit#info=devDependencies "Dev dependency status")
+
 _Light and fast - Don't be sad, be hapi!_
 
 **Inspired by**
@@ -45,6 +49,7 @@ This repo was inspired by the following projects and their authors
 **Basic**
 * add redux
 * Testing
+* Coverage
 * ~~Linting~~
 
 **Advanced**
