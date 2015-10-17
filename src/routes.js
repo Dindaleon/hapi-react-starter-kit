@@ -7,12 +7,12 @@ import Home from './components/Home';
 
 const routes = (
   <Route>
-  	<Route path="/" component={App}>
-	  	<IndexRoute component={Index}/>
-	    <Route path="/home" component={Home} />
-	     // put other routes here
-	    
-	  </Route>
+    <Route path="/" component={ App }>
+      <IndexRoute component={ Index }/>
+      <Route path="/home" component={ Home } />
+      // put other routes here
+
+    </Route>
   </Route>
 );
 

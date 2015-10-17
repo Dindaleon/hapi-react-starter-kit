@@ -23,24 +23,29 @@ This repo was inspired by the following projects and their authors
 **Clone this repository**
 
     git clone https://github.com/Dindaleon/hapi-react-starter-kit.git
-    
+
 **Install**
 
-    npm install
-    
+    npm install    
+
 **Production server**
 
-    npm run dev
-    
+    npm run dev    
+
 **Development server**
 
     npm run prod
+
+**Linting**
+
+    npm run eslint
+    npm run jscs
 
 ##Todo
 **Basic**
 * add redux
 * Testing
-* Linting
+* ~~Linting~~
 
 **Advanced**
 * add redis

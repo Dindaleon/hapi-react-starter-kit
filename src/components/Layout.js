@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Layout = React.createClass({
 
+  propTypes: {
+    children: PropTypes.object.isRequired
+  },
+
   render() {
     return (
-      <div id='layout'>
+      <div id="layout">
         This is the Layout
-         {this.props.children}
+         { this.props.children }
       </div>
     );
   }

@@ -1,0 +1,106 @@
+
+{
+  "esprima": "babel-jscs",
+  "esnext": true,
+  "requireCurlyBraces": ["else", "for", "while", "do", "try", "catch", "case", "default"],
+  "requireSpaceAfterKeywords": [
+    "if",
+    "else",
+    "for", "while", "do", "switch", "return", "try", "catch"
+  ],
+  "requireParenthesesAroundIIFE": true,
+  "requireSpacesInConditionalExpression": true,
+
+  "requireSpacesInFunctionExpression": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInFunctionDeclaration": {
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireSpacesInsideObjectBrackets": {
+    "allExcept": ["{", "}", "(", ")" ]
+  },
+  "requireSpacesInsideParentheses": {
+    "all": true,
+    "except": ["(", ")", "{", "}", "[", "]"]
+  },
+  "requireSpacesInsideParenthesizedExpression": {
+    "allExcept": [ "{", "}", "(", ")", "function" ]
+  },
+  "requireSpacesInsideBrackets": {
+    "allExcept": [ "[", "]", "{", "}" ]
+  },
+
+  "disallowMultipleVarDecl": "exceptUndefined",
+  "requireBlocksOnNewline": 1,
+  "disallowPaddingNewlinesInBlocks": true,
+  "disallowEmptyBlocks": true,
+  "disallowSpacesInsideObjectBrackets": false,
+  "disallowSpacesInsideArrayBrackets": false,
+  "disallowSpacesInsideParentheses": false,
+  "disallowSpaceAfterObjectKeys": true,
+  "requireCommaBeforeLineBreak": true,
+  "disallowSpacesInCallExpression": true,
+  "requireSpaceBeforeObjectValues": true,
+  "requireOperatorBeforeLineBreak": [
+    "?",
+    "+",
+    "-",
+    "/",
+    "*",
+    "=",
+    "==",
+    "===",
+    "!=",
+    "!==",
+    ">",
+    ">=",
+    "<",
+    "<=",
+    "||",
+    "&&"
+  ],
+  "disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],
+  "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+  "requireSpaceBeforeBinaryOperators": [
+    "?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="
+  ],
+  "requireSpaceAfterBinaryOperators": [
+    "?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="
+  ],
+  "disallowSpaceAfterBinaryOperators": ["!"],
+  "disallowImplicitTypeConversion": ["numeric", "boolean", "binary", "string"],
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+  "disallowKeywords": ["with"],
+  "disallowMultipleLineStrings": true,
+  "disallowMultipleLineBreaks": true,
+  "validateLineBreaks": false,
+  "validateQuoteMarks": null,
+  "validateIndentation": 2,
+  "disallowMixedSpacesAndTabs": true,
+  "disallowTrailingWhitespace": true,
+  "disallowTrailingComma": true,
+  "disallowKeywordsOnNewLine": ["else", "catch"],
+  "requireLineFeedAtFileEnd": true,
+  "maximumLineLength": {
+    "value": 150,
+    "allowUrlComments": true
+  },
+  "requireCapitalizedConstructors": true,
+  "requireDotNotation": true,
+  "requireSpaceAfterLineComment": true,
+  "validateParameterSeparator": ", ",
+  "disallowNewlineBeforeBlockStatements": true,
+  "requirePaddingNewlinesBeforeKeywords": [
+    "do",
+    "for",
+    "if",
+    "switch",
+    "try",
+    "void",
+    "while",
+    "with",
+    "return"
+   ],
+  "excludeFiles": ["node_modules/**", "static/assets", "webpack/**"]
+}
