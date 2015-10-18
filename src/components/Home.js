@@ -6,9 +6,17 @@ export default class Home extends React.Component {
     this.state = { test: 'Finally,' };
   }
   render() {
+    const me = 'happy';
+    const you = 'sad';
+
     return (
 			<div>
 				{ this.state.test } I am home!
+        <div>I am { me }</div>
+        <div>You are { you }</div>
+        <div>
+          <span>So we are </span><span>{ me === 'happy' ? 'good' : 'Bad!' }</span>
+        </div>
 			</div>
 		);
   }

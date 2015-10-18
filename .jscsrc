@@ -100,5 +100,5 @@
     "with",
     "return"
    ],
-  "excludeFiles": ["node_modules/**", "static/assets", "webpack/**"]
+  "excludeFiles": ["node_modules/**", "coverage", "static/assets", "webpack/**", "TO_BE_REMOVED"]
 }

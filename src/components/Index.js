@@ -4,7 +4,7 @@ export default class Index extends Component {
   render() {
     return (
 			<div>
-				This is the index&nbsp;
+				<div>This is the index</div>
 
 				<Link to={ '/home' } ><button>Take me home...</button></Link>
 			</div>

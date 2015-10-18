@@ -1,2 +1,4 @@
 node_modules
 static/assets/*
+TO_BE_REMOVED
+coverage

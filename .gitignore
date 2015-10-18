@@ -1,2 +1,5 @@
 node_modules
 static/assets/*
+converage
+npm-debug.log
+TO_BE_REMOVED

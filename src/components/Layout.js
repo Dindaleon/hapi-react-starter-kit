@@ -10,7 +10,7 @@ const Layout = React.createClass({
     return (
       <div id="layout">
         This is the Layout
-         { this.props.children }
+        { this.props.children }
       </div>
     );
   }

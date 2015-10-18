@@ -4,6 +4,7 @@ A hapi React Starter kit with react-router, redux, react-transform
 [![Build Status](https://travis-ci.org/Dindaleon/hapi-react-starter-kit.svg)](https://travis-ci.org/Dindaleon/hapi-react-starter-kit)
 [![Dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit "Dependency status")
 [![Dev dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit/dev-status.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit#info=devDependencies "Dev dependency status")
+[![Codacy Badge](https://api.codacy.com/project/badge/16a9c5ea08814e8ebdf1cc64f680b1f3)](https://www.codacy.com/app/Dindaleon/hapi-react-starter-kit)
 
 _Light and fast - Don't be sad, be hapi!_
 
@@ -22,6 +23,9 @@ This repo was inspired by the following projects and their authors
 * React Router keeps your UI in sync with the URL [react-router](https://github.com/rackt/react-router) v1.0.0-rc3
 * React transmit for server side rendering of reactjs [react-transmit](https://github.com/RickWong/react-transmit)
 * ES6 and ES7 ready with [BabelJs](https://babeljs.io/)
+* Linting with eslint & jscs
+* Testing with karma, mocha, isparta, webpack, sinon-chai
+* Coverage with karma-coverage
 
 ## Usage
 **Clone this repository**
@@ -45,12 +49,15 @@ This repo was inspired by the following projects and their authors
     npm run eslint
     npm run jscs
 
+**Testing**
+
 ##Todo
 **Basic**
 * add redux
-* Testing
-* Coverage
+* ~~Testing~~
+* ~~Coverage~~
 * ~~Linting~~
+* Coveralls support
 
 **Advanced**
 * add redis
