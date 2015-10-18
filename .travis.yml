@@ -3,6 +3,7 @@ node_js:
   - "4"
 
 # By default, Travis runs "npm install" to install dependencies.
-
-# Run the tests & submit code coverage data to Coveralls
-script: ./travis-test.sh
+before_script:
+after_script:
+  - 'npm install coveralls'
+  - 'cat ./coverage/lcovonly/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
