@@ -4,6 +4,7 @@ A hapi React Starter kit with react-router, redux, react-transform
 [![Build Status](https://travis-ci.org/Dindaleon/hapi-react-starter-kit.svg)](https://travis-ci.org/Dindaleon/hapi-react-starter-kit)
 [![Dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit "Dependency status")
 [![Dev dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit/dev-status.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit#info=devDependencies "Dev dependency status")
+[![Coverage Status](https://coveralls.io/repos/Dindaleon/hapi-react-starter-kit/badge.svg?branch=master&service=github)](https://coveralls.io/github/Dindaleon/hapi-react-starter-kit?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/16a9c5ea08814e8ebdf1cc64f680b1f3)](https://www.codacy.com/app/Dindaleon/hapi-react-starter-kit)
 
 _Light and fast - Don't be sad, be hapi!_
@@ -57,7 +58,7 @@ This repo was inspired by the following projects and their authors
 * ~~Testing~~
 * ~~Coverage~~
 * ~~Linting~~
-* Coveralls support
+* ~~Coveralls support~~
 
 **Advanced**
 * add redis
