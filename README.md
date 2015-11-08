@@ -37,11 +37,11 @@ This repo was inspired by the following projects and their authors
 
     npm install    
 
-**Production server**
+**Development server**
 
     npm run dev    
 
-**Development server**
+**Production server**
 
     npm run prod
 
