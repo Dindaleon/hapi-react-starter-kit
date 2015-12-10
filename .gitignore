@@ -1,5 +1,5 @@
 node_modules
 static/assets/*
-converage
+coverage
 npm-debug.log
 TO_BE_REMOVED
