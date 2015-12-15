@@ -44,7 +44,7 @@
   "dependencies": {
     "h2o2": "^4.0.1",
     "hapi": "^11.0.0",
-    "history": "^1.12.5",
+    "history": "^1.13.1",
     "inert": "^3.1.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
