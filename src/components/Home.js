@@ -1,10 +1,12 @@
 import React from 'react';
+import CounterContainer from '../containers/CounterApp';
 
 export default class Home extends React.Component {
   constructor( props ) {
     super( props );
     this.state = { test: 'Finally,' };
   }
+
   render() {
     const me = 'happy';
     const you = 'sad';
@@ -17,6 +19,7 @@ export default class Home extends React.Component {
         <div>
           <span>So we are </span><span>{ me === 'happy' ? 'good' : 'Bad!' }</span>
         </div>
+        <CounterContainer />
 			</div>
 		);
   }

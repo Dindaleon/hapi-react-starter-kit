@@ -8,22 +8,57 @@ import webpackConfig from '../webpack/dev.config';
 // Hapi server imports
 import Hapi from 'hapi';
 import Inert from 'inert';
-import h2o2 from 'h2o2';
+import Vision from 'vision';
+import swagger from 'hapi-swagger';
+import jwt from 'hapi-auth-jwt2';
+import api from '../src/api';
+import rooms from '../src/rooms';
+import issueToken from '../src/issueToken';
 
 // React imports
-import Transmit from 'react-transmit';
-import { RoutingContext, match } from 'react-router';
-// import {renderToString} from 'react-dom/server';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 
 // React-router routes and history imports
-import routes from '../src/routes';
-import createLocation from 'history/lib/createLocation';
+import getRoutes from '../src/routes';
+import createHistory from 'history/lib/createMemoryHistory';
+
+// Redux imports
+import { Provider } from 'react-redux';
+
+// Import Intl
+import { IntlProvider } from 'react-intl';
+import * as lang from '../src/lang';
+
+// Configure Redux Store
+import configureStore from '../src/store/configureStore';
+
+// Redux router imports
+import { ReduxRouter } from 'redux-router';
+import { reduxReactRouter, match } from 'redux-router/server';
+import qs from 'query-string';
+
+// Import helpers
+import ApiClient from '../src/helpers/ApiClient';
+import Html from '../src/helpers/Html';
+
+// Import config file
+import config from '../src/config';
 
 // Start server function
-export default function( HOST, PORT, callback ) {
+export default function( callback ) {
   // Create the Walmart Labs Hapi Server
-  const server = new Hapi.Server();
-  server.connection({ host: HOST, port: PORT });
+  const server = new Hapi.Server({ debug: { request: [ 'error', 'request-internal' ] }});
+  // Configure connections
+  server.connection({ host: SERVER_HOST, port: SERVER_PORT, labels: [ 'api' ], routes: { cors: true }});
+  server.connection({ host: SERVER_HOST, port: WS_PORT, labels: [ 'ws' ], routes: { cors: true }});
+
+  server.connections[0].name = 'API';
+  server.connections[1].name = 'WS';
+
+  const apiServer = server.select('api');
+  const wsServer = server.select('ws');
+
   // Webpack compiler
   const compiler = webpack( webpackConfig );
   const assets = {
@@ -47,70 +82,115 @@ export default function( HOST, PORT, callback ) {
     reload: true
   };
 
-  // Register Hapi plugins
   server.register([
     {
       register: Inert
     }, {
-      register: h2o2
+      register: Vision
     }, {
       register: WebpackPlugin,
       options: { compiler, assets, hot }
+    }, {
+      register: jwt
+    }, {
+      register: issueToken
+    }, {
+      register: api,
+      routes: {
+        prefix: config.api.routes.path
+      }
+    }, {
+      register: rooms,
+      options: {
+        server: wsServer
+      }
     }
-  ], ( error ) => {
-    if ( error ) {
-      return console.error( error );
+  ], (err) => {
+    if (err) {
+      throw err;
     }
-
-    /**
-    * Attempt to serve static requests from the public folder.
-    */
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: 'static'
+    server.register([
+      {
+        register: swagger,
+        options: {
+          documentationPath: config.api.swagger.documentationPath
         }
       }
-    });
-
-    server.ext( 'onPreResponse', ( request, reply ) => {
-      if ( typeof request.response.statusCode !== 'undefined' ) {
-        return reply.continue();
+    ], { select: [ 'api' ] }, ( error ) => {
+      if ( error ) {
+        return console.error( error );
       }
-      const location = createLocation( request.path );
-      match({ routes, location }, ( error, redirectLocation, renderProps ) => {
-        if ( error || !renderProps ) {
-          // reply("500: " + error.message)
-          reply.continue();
-        } else if ( redirectLocation ) {
-          reply.redirect( redirectLocation.pathname + redirectLocation.search );
-        } else if ( renderProps ) {
-          // reply(renderToString( <RoutingContext {...renderProps} /> ))
-          Transmit.renderToString( RoutingContext, renderProps ).then(({ reactData }) => {
-            let output = (
-              `<!doctype html>
-              <html lang="en-us">
-                <head>
-                  <meta charset="utf-8">
-                  <title>hapi-react-starter-kit</title>
-                  <link rel="shortcut icon" href="/favicon.ico">
-                </head>
-                <body>
-                  <div id="root"></div>
-                </body>
-              </html>`
-            );
 
-            const webserver = process.env.NODE_ENV === 'production' ? '' : '//' + HOST + ':' + PORT;
-            output          = Transmit.injectIntoMarkup( output, reactData, [ `${webserver}/bundle.js` ]);
-
-            reply( output );
-          }).catch(( error ) => {
-            console.error( error );
-          });
+      /**
+       * Attempt to serve static requests from the public folder.
+       */
+      apiServer.route({
+        method: 'GET',
+        path: '/{param*}',
+        handler: {
+          directory: {
+            path: 'static'
+          }
         }
+      });
+
+      /**
+       * Cookie Settings
+       */
+      apiServer.state('USER_SESSION', {
+        ttl: null,
+        isSecure: !__DEVELOPMENT__,
+        isHttpOnly: false,
+        encoding: 'none',
+        clearInvalid: false, // remove invalid cookies
+        strictHeader: false // don't allow violations of RFC 6265
+      });
+
+      server.ext( 'onPreResponse', ( request, reply ) => {
+        if ( typeof request.response.statusCode !== 'undefined' ) {
+          return reply.continue();
+        }
+        const client = new ApiClient(request);
+        const store = configureStore(reduxReactRouter, getRoutes, createHistory, client);
+
+        const output = (
+          renderToString( <Html store={ store }/> )
+        );
+
+        const hydrateOnClient = () => {
+          reply( '<!doctype html>\n' + output ).code(500);
+        };
+
+        store.dispatch( match( request.path, ( error, redirectLocation, routerState ) => {
+          if ( redirectLocation ) {
+            reply.redirect( redirectLocation.pathname + redirectLocation.search );
+          } else if ( error || !routerState ) {
+            hydrateOnClient();
+          } else if ( routerState ) {
+            if (routerState.location.search && !routerState.location.query) {
+              routerState.location.query = qs.parse(routerState.location.search);
+            }
+
+            store.getState().router.then(() => {
+              const component = (
+                  < Provider store={ store } key="provider">
+                    <IntlProvider key={ store.getState().user.data.locale }
+                                  locale={ store.getState().user.data.locale }
+                                  messages={ lang[store.getState().user.data.locale] }>
+                      <ReduxRouter/>
+                    </IntlProvider>
+                  </Provider>
+                );
+
+              const output = (
+                  renderToString( <Html component={ component } store={ store } /> )
+                );
+
+              reply( '<!doctype html>\n' + output);
+            })
+            .catch(err => reply('error: ' + err));
+          }
+        }));
       });
     });
   });

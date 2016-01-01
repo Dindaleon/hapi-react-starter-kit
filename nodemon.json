@@ -1,0 +1,9 @@
+{
+  "watch": [
+    "webpack/devServer.js",
+    "src/api.js",
+    "src/issueToken.js",
+    "src/server.js",
+    "src/controllers"
+  ]
+}

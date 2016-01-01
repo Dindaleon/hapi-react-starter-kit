@@ -8,7 +8,19 @@
   "globals": {
     "expect": true,
     "sinon": true,
-    "__DEV__": true
+    "__PRODUCTION__": true,
+    "__DEVELOPMENT__": true,
+    "__CLIENT__": true,
+    "__SERVER__": true,
+    "PROTOCOL": true,
+    "SERVER_HOST": true,
+    "SERVER_PORT": true,
+    "WS_HOST": true,
+    "WS_PORT": true,
+    "REDIS_HOST": true,
+    "REDIS_PORT": true,
+    "REDIS_DBNUMBER": true,
+    "socket": true
   },
   "ecmaFeatures": {
     "arrowFunctions": true,
@@ -48,7 +60,7 @@
      * Possible errors
      */
     "no-cond-assign": [2, "always"], // http://eslint.org/docs/rules/no-cond-assign
-    "no-console": 1,                 // http://eslint.org/docs/rules/no-console
+    "no-console": 0,                 // http://eslint.org/docs/rules/no-console
     "no-debugger": 1,                // http://eslint.org/docs/rules/no-debugger
     "no-alert": 1,                   // http://eslint.org/docs/rules/no-alert
     "no-constant-condition": 1,      // http://eslint.org/docs/rules/no-constant-condition
@@ -114,7 +126,7 @@
     /**
      * Style
      */
-    "indent": [2, 2],                // http://eslint.org/docs/rules/indent
+    "indent": [2, 2,  {"SwitchCase": 1}],                // http://eslint.org/docs/rules/indent
     "brace-style": [
       2,               // http://eslint.org/docs/rules/brace-style
       "1tbs", {
@@ -149,7 +161,9 @@
       "objectsInArrays": false,
       "arraysInArrays": false
     }],
-    "object-curly-spacing": [2, "always"],
+    "object-curly-spacing": [2, "always", {
+      "objectsInObjects": false
+    }],
     "no-nested-ternary": 2,          // http://eslint.org/docs/rules/no-nested-ternary
     "no-new-object": 2,              // http://eslint.org/docs/rules/no-new-object
     "no-spaced-func": 2,             // http://eslint.org/docs/rules/no-spaced-func

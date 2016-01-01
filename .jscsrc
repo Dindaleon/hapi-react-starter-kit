@@ -2,6 +2,7 @@
 {
   "esprima": "babel-jscs",
   "esnext": true,
+  "predef": ["ACTIONS_AUTH_PATH"]
   "requireCurlyBraces": ["else", "for", "while", "do", "try", "catch", "case", "default"],
   "requireSpaceAfterKeywords": [
     "if",
@@ -20,10 +21,7 @@
   "requireSpacesInsideObjectBrackets": {
     "allExcept": ["{", "}", "(", ")" ]
   },
-  "requireSpacesInsideParentheses": {
-    "all": true,
-    "except": ["(", ")", "{", "}", "[", "]"]
-  },
+  "requireSpacesInsideParentheses": false,
   "requireSpacesInsideParenthesizedExpression": {
     "allExcept": [ "{", "}", "(", ")", "function" ]
   },

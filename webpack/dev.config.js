@@ -17,7 +17,14 @@ const config = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify( 'development' ),
-      '__DEV__': JSON.stringify( process.env.NODE_ENV )
+      '__SERVER__': false,
+      '__CLIENT__': true,
+     /* 'PROTOCOL': true,
+      'SERVER_HOST': JSON.stringify('localhost'),
+      'WS_PORT': 8801*/
+    }),
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     })
   ],
   module: {
@@ -27,9 +34,23 @@ const config = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          stage: 0,
-          plugins: [ 'react-transform' ],
-          extra: {
+          cacheDirectory: true,
+          presets: [ 'es2015', 'react', 'stage-0' ],
+          plugins: [
+            [ 'transform-decorators-legacy' ],
+            [ 'transform-runtime' ],
+            [ 'react-transform', {
+              transforms: [{
+                transform: 'react-transform-hmr',
+                imports: [ 'react' ],
+                locals: [ 'module' ],
+              }, {
+                transform: 'react-transform-catch-errors',
+                imports: [ 'react', 'redbox-react' ],
+              }]
+            }]
+          ]
+          /*extra: {
             'react-transform': {
               transforms: [
                 {
@@ -41,8 +62,11 @@ const config = {
                   imports: [ 'react', 'redbox-react' ]
                 }
               ]
+            },
+            'react-intl': {
+              messagesDir: '.src/lang'
             }
-          }
+          }*/
         }
       }, {
         test: /\.json?$/,

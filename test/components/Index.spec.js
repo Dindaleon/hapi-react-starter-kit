@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from '../../src/components/Index';
+import Index from '../../src/components/Index';
 import * as utils from '../utils';
 
 describe( 'Components', () => {
   describe( 'Index', () => {
-    const component = utils.shallowlyRenderedOutput( < Home / > );
+    const component = utils.shallowlyRenderedOutput( < Index / > );
 
     it( 'should contain one "<div>" element', () => {
       expect( component.type ).to.be.equal( 'div' );

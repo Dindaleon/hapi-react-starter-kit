@@ -1,4 +1,5 @@
 node_modules
+src/lang/en.js
 static/assets/*
 coverage
 npm-debug.log
