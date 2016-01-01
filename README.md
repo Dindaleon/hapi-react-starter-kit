@@ -57,6 +57,10 @@ This repo was inspired by the following projects and their authors
 * Users can create multiple chat rooms
 * See who is typing
 
+## DEMO
+
+    http://hapi-reactstarterkit.rhcloud.com/
+
 ## Usage
 **Clone this repository**
 
