@@ -19,7 +19,7 @@ let defaultRedisDbNumber = 1;
 if ( __PRODUCTION__ ) {
   defaultServerHOST = 'localhost';
   defaultServerPORT = 8080;
-  defaultWsHost = 'localhost';
+  defaultWsHost = 'http://hapi-reactstarterkit.rhcloud.com';
   defaultWsPort = 8000;
   defaultRedisHost = 'localhost';
   defaultRedisPort = 6379;

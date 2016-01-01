@@ -51,18 +51,27 @@ export default function( callback ) {
     labels: [ 'api' ],
     routes: {
       cors: {
-        origin: [ PROTOCOL + SERVER_HOST + ':' + WS_PORT ]
+        origin: [ PROTOCOL + WS_HOST + ':' + WS_PORT ]
       }
     }
   });
-  server.connection({ host: SERVER_HOST, port: WS_PORT, labels: [ 'ws' ] });
+  server.connection({
+    host: SERVER_HOST,
+    port: WS_PORT,
+    labels: [ 'ws' ],
+    routes: {
+      cors: {
+        origin: [ PROTOCOL + WS_HOST + ':' + SERVER_PORT ]
+      }
+    }
+  });
 
   // Set names for each connection
   server.connections[0].name = 'API';
   server.connections[1].name = 'WS';
 
   const apiServer = server.select('api');
-  const wsServer = server.select('ws');
+  // const wsServer = server.select('ws');
 
   server.register([
     {
@@ -81,7 +90,7 @@ export default function( callback ) {
     }, {
       register: rooms,
       options: {
-        server: wsServer
+        server: apiServer
       }
     }
   ], (err) => {

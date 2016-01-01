@@ -2,9 +2,6 @@
 /* jscs: disable */
 
 // Karma configuration
-
-var webpack = require('webpack');
-
 module.exports = function(config) {
   config.set({
 
@@ -55,8 +52,12 @@ module.exports = function(config) {
         loaders: [
           {
             exclude: /node_modules/,
-            loader: 'babel-loader',
-            test: /\.js?$/
+            loader: 'babel',
+            test: /\.js?$/,
+            query: {
+              presets: [ 'es2015', 'react', 'stage-0' ],
+              plugins: [ 'transform-decorators-legacy', 'transform-runtime' ]
+            }
           }
         ]
       }
