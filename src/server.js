@@ -51,7 +51,7 @@ export default function( callback ) {
     labels: [ 'api' ],
     routes: {
       cors: {
-        origin: [ 'http://' + SERVER_HOST + ':' + WS_PORT ]
+        origin: [ PROTOCOL + SERVER_HOST + ':' + WS_PORT ]
       }
     }
   });
