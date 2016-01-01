@@ -11,6 +11,7 @@
     "dev": "SET NODE_ENV=development&& npm run start-dev",
     "prod": "SET NODE_ENV=production&& SET PORT=8080&& SET WSPORT=8000&& npm start",
     "build": "rimraf ./static/assets && webpack -p --progress --stats --config ./webpack/prod.config.js",
+    "postinstall": "npm run build",
     "eslint": "eslint .",
     "jscs": "jscs .",
     "coveralls": "copy coverage/lcovonly/lcov.info | node ./node_modules/coveralls/bin/coveralls"

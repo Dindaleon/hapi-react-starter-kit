@@ -45,8 +45,17 @@ export default function( callback ) {
   // Create the Walmart Labs Hapi Server
   const server = new Hapi.Server(); // No debug no production
   // Configure connections
-  server.connection({ host: SERVER_HOST, port: SERVER_PORT, labels: [ 'api' ], routes: { cors: true }});
-  server.connection({ host: SERVER_HOST, port: WS_PORT, labels: [ 'ws' ], routes: { cors: true }});
+  server.connection({
+    host: SERVER_HOST,
+    port: SERVER_PORT,
+    labels: [ 'api' ],
+    routes: {
+      cors: {
+        origin: [ 'http://' + SERVER_HOST + ':' + WS_PORT ]
+      }
+    }
+  });
+  server.connection({ host: SERVER_HOST, port: WS_PORT, labels: [ 'ws' ] });
 
   // Set names for each connection
   server.connections[0].name = 'API';
