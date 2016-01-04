@@ -10,7 +10,7 @@
     "start-dev": "nodemon index.js",
     "dev": "SET NODE_ENV=development&& npm run start-dev",
     "prod": "SET NODE_ENV=production&& SET PORT=8080&& SET WSPORT=8000&& npm start",
-    "build": "npm install --save-dev rimraf webpack extract-text-webpack-plugin stats-webpack-plugin strip-loader&& rimraf ./static/assets && webpack -p --progress --stats --config ./webpack/prod.config.js",
+    "build": "rimraf ./static/assets && webpack -p --progress --stats --config ./webpack/prod.config.js",
     "postinstall": "npm run build",
     "eslint": "eslint .",
     "jscs": "jscs .",
