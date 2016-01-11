@@ -3,7 +3,9 @@ import { LOAD_REQUEST, LOAD_SUCCESS, LOAD_FAILURE,
          LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE,
          UPDATE_REQUEST, UPDATE_SUCCESS, UPDATE_FAILURE,
          REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE,
+         SET_COORDINATES,
          SET_LOCALE,
+         SET_USER_AGENT,
          SWITCH_LOCALE, SWITCH_LOCALE_SUCCESS, SWITCH_LOCALE_FAILURE
        } from '../actions/userActions';
 import config from '../config';
@@ -11,11 +13,15 @@ import config from '../config';
 const initialState = {
   loaded: false,
   data: {
-    id: 0,
-    username: null,
+    coordinates: {
+      latitude: null,
+      longitude: null
+    },
     email: null,
+    id: 0,
+    locale: config.user.locale,
     sessionId: 0,
-    locale: config.user.locale
+    username: null
   }
 };
 
@@ -123,6 +129,16 @@ const user = ( state = initialState, action = {} ) => {
       };
     }
 
+    // SET COORDINATES
+    // Used for user geolocation
+    case SET_COORDINATES: {
+      return {
+        ...state,
+        data: Object.assign(state.data, {
+          coordinates: action.coordinates
+        })
+      };
+    }
     // SET LOCALE
     // Mainly used for guest accounts
     case SET_LOCALE: {
@@ -133,7 +149,14 @@ const user = ( state = initialState, action = {} ) => {
         })
       };
     }
-
+    // Set USERAGENT
+    case SET_USER_AGENT: {
+      return {
+        ...state,
+        loadedAgent: true,
+        agent: action.userAgent
+      };
+    }
     // SWITCH LOCALE
     case SWITCH_LOCALE: {
       return {

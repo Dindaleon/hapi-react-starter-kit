@@ -32,6 +32,7 @@ import * as lang from '../src/lang';
 
 // Configure Redux Store
 import configureStore from '../src/store/configureStore';
+import { setUserAgent } from '../src/actions/userActions';
 
 // Redux router imports
 import { ReduxRouter } from 'redux-router';
@@ -170,25 +171,28 @@ export default function( callback ) {
             if (routerState.location.search && !routerState.location.query) {
               routerState.location.query = qs.parse(routerState.location.search);
             }
+            store.dispatch(
+              setUserAgent(request.headers['user-agent']),
+              store.getState().router.then(() => {
+                const component = (
+                    <Provider store={ store } key="provider">
+                      <IntlProvider
+                        key={ store.getState().user.data.locale }
+                        locale={ store.getState().user.data.locale }
+                        messages={ lang[store.getState().user.data.locale] }>
+                        <ReduxRouter />
+                      </IntlProvider>
+                    </Provider>
+                  );
 
-            store.getState().router.then(() => {
-              const component = (
-                  < Provider store={ store } key="provider">
-                    <IntlProvider key={ store.getState().user.data.locale }
-                                  locale={ store.getState().user.data.locale }
-                                  messages={ lang[store.getState().user.data.locale] }>
-                      <ReduxRouter/>
-                    </IntlProvider>
-                  </Provider>
-                );
+                const output = (
+                    renderToString( <Html component={ component } store={ store } /> )
+                  );
 
-              const output = (
-                  renderToString( <Html component={ component } store={ store } /> )
-                );
-
-              reply( '<!doctype html>\n' + output);
-            })
-            .catch(err => reply('error: ' + err));
+                reply( '<!doctype html>\n' + output);
+              })
+              .catch(err => reply('error: ' + err))
+            );
           }
         }));
       });

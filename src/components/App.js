@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { StyleRoot } from 'radium';
 import Promise from 'bluebird';
 import Layout from '../components/Layout';
 import { load, isAuthLoaded } from '../actions/userActions';
@@ -9,7 +10,6 @@ import config from '../config';
 
 const fetchData = (getState, dispatch) => {
   const promises = [];
-
   if (!isAuthLoaded(getState())) {
     promises.push(dispatch(load()).then(() => {
       const user = getState().user.data;
@@ -21,12 +21,18 @@ const fetchData = (getState, dispatch) => {
       promises.push(dispatch(loadLocale(user.locale)));
     }));
   }
+
   return Promise.all(promises);
 };
 
 @connectData( fetchData )
-export default class App extends Component {
+class App extends Component {
+  state = {
+    watchId: 0
+  }
+
   componentDidMount() {
+    // Locale Control
     const { loadLocale, setLocale, user } = this.props;
     // Load saved locale for guests
     if ( user.id === 0 && localStorage.locale ) {
@@ -34,16 +40,55 @@ export default class App extends Component {
       loadLocale(locale);
       setLocale(locale);
     }
+        // Geolocation Control
+    this.geolocation = navigator.geolocation || false;
+    let geolocation = this.geolocation;
+    if (geolocation) {
+      geolocation = navigator.geolocation;
+      this.watchId = geolocation.watchPosition(this.geoSuccess, this.geoError);
+    }
   }
+
+  componentWillUnmount() {
+    if (this.geolocation && this.state.watchId > 0) {
+      this.geolocation.clearWatch(this.state.watchId);
+    }
+  }
+
+  geoSuccess = position => {
+    const coordinates = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    };
+    this.props.setCoordinates(coordinates);
+    this.setState({ watchId: this.watchId });
+  }
+
+  geoError = () => {
+    console.log('Sorry, geolocation is not available.');
+  }
+
   render() {
+    const { userAgent } = this.props;
+
+
     return (
-			<Layout {...this.props} />
+
+      <StyleRoot radiumConfig={
+        { userAgent }
+      }>
+			  <Layout {...this.props} />
+      </StyleRoot>
 		);
   }
 }
 
 App.propTypes = {
   loadLocale: PropTypes.func.isRequired,
+  setCoordinates: PropTypes.func.isRequired,
   setLocale: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  userAgent: PropTypes.string.isRequired
 };
+
+export default App;

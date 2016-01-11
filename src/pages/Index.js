@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { StyleRoot } from 'radium';
 import { Link } from 'react-router';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import Button from '../themes/default/Button';
 
 const messages = defineMessages({
   welcomeMessage: {
@@ -18,10 +20,10 @@ const messages = defineMessages({
 export default class Index extends Component {
   render() {
     return (
-			<div>
+			<StyleRoot id="index">
         <div><FormattedMessage {...messages.welcomeMessage} /></div>
-				<Link to={ '/home' } ><button><FormattedMessage { ...messages.takeMeHome } /></button></Link>
-			</div>
+				<Link to={ '/home' } ><Button><FormattedMessage { ...messages.takeMeHome } /></Button></Link>
+			</StyleRoot>
 		);
   }
 }

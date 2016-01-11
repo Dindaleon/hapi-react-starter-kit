@@ -1,7 +1,3 @@
-import fetch from 'isomorphic-fetch';
-import Promise from 'bluebird';
-Promise.promisifyAll(fetch);
-
 export const LOAD_LOCALE = 'LOAD_LOCALE';
 
 export const loadLocale = ( locale ) => {

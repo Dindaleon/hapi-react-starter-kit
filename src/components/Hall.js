@@ -30,7 +30,7 @@ export default class Hall extends Component {
 
   render() {
     return (
-      <div id="hall">
+      <div>
         { this.state.lists.rooms.length } <FormattedMessage {...messages.rooms} />
         <ul>
         {
@@ -51,7 +51,6 @@ export default class Hall extends Component {
 Hall.propTypes = {
   list: PropTypes.func.isRequired,
   loadMessages: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
   rooms: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };

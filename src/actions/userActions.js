@@ -17,7 +17,9 @@ export const UPDATE_FAILURE = 'UPDATE_FAILURE';
 export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+export const SET_COORDINATES = 'SET_COORDINATES';
 export const SET_LOCALE = 'SET_LOCALE';
+export const SET_USER_AGENT = 'SET_USER_AGENT';
 export const SWITCH_LOCALE = 'SWITCH_LOCALE';
 export const SWITCH_LOCALE_SUCCESS = 'SWITCH_LOCALE_SUCCESS';
 export const SWITCH_LOCALE_FAILURE = 'SWITCH_LOCALE_FAILURE';
@@ -104,6 +106,13 @@ export const update = ( user ) => {
   };
 };
 
+export const setCoordinates = ( coordinates ) => {
+  return {
+    type: SET_COORDINATES,
+    coordinates
+  };
+};
+
 export const setLocale = ( locale ) => {
   return {
     type: SET_LOCALE,
@@ -111,7 +120,7 @@ export const setLocale = ( locale ) => {
   };
 };
 
-export const switchLocale = ( user ) => {
+export const switchLocale = ( user, direct ) => {
   return {
     type: [ SWITCH_LOCALE ],
     promise: client => client.put('/users/update', {
@@ -125,9 +134,17 @@ export const switchLocale = ( user ) => {
       },
       data: {
         id: parseInt(user.id, 10),
-        locale: user.locale
+        locale: user.locale,
+        switchLocale: direct
       }
     })
+  };
+};
+
+export const setUserAgent = ( userAgent ) => {
+  return {
+    type: SET_USER_AGENT,
+    userAgent
   };
 };
 

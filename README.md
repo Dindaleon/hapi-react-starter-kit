@@ -27,8 +27,7 @@ This repo was inspired by the following projects and their authors
 * Hapi server framework for Node. - [hapijs](https://github.com/hapijs/hapi)
 * React JS Library for user interfaces. - [reactjs](https://github.com/reactjs)
 * Webpack + [React-transform](https://github.com/gaearon/babel-plugin-react-transform) and [react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
-* React Router keeps your UI in sync with the URL. - [react-router](https://github.com/rackt/react-router) v1.0.0-rc3
-~~* React transmit for server side rendering of reactjs. - [react-transmit](https://github.com/RickWong/react-transmit)~~
+* React Router keeps your UI in sync with the URL. - [react-router](https://github.com/rackt/react-router)
 * Flux implementation - [Redux](https://github.com/rackt/redux)
 * ES6 and ES7 ready. - [BabelJs](https://babeljs.io/)
 * Linting with eslint & jscs
@@ -45,6 +44,7 @@ This repo was inspired by the following projects and their authors
 * Token Encryption with [node-forge](https://github.com/digitalbazaar/forge)
 * i18n - [react-intl by yahoo](https://github.com/yahoo/react-intl)
 * Real-time messaging - [Socket.io](https://github.com/socketio/socket.io)
+* Inline CSS Styling - [Radium](https://github.com/FormidableLabs/radium)
 * OpenShift deployment READY.
 
 **User Accounts**
@@ -112,10 +112,11 @@ TODO
 * [x] add redis
 * [x] add socketio
 * [x] add authentication
-* [ ] Deployment guides (Openshift, Heorku...)
+* [x] OpenShift Deployment guide
+* [ ] Heroku Deployment guide
 * [ ] Documentation
 * [ ] Implement error handling on react components
-* [ ] Implement geolocalization
+* [x] Implement geolocalization
 * [ ] Implement styling
 * [ ] Invalidate reducers
 * [ ] More translations

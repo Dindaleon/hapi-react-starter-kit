@@ -34,16 +34,15 @@ export default class Html extends Component {
     store: PropTypes.object,
     initialState: PropTypes.object
   }
-
   render() {
     const { component, store } = this.props;
     const componentHTML = component ? renderToString(component) : '';
     const initialState = store.getState();
-
     return (
       <html lang="en-us">
         <head>
           <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>hapi-react-starter-kit</title>
           <link rel="shortcut icon" href="/favicon.ico" />
         </head>

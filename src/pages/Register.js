@@ -1,18 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import { StyleRoot } from 'radium';
 import Signup from '../components/auth/Signup';
 
 export default class SignupPage extends Component {
   render() {
     const { register, login, loadLocale, pushState } = this.props.children;
     return (
-      <div id="SignupPage">
-        Please Signup:
+      <StyleRoot id="SignupPage">
+        <h1>Please Signup:</h1>
         <Signup
           register={ register }
           login={ login }
           loadLocale={ loadLocale }
           pushState={ pushState } />
-      </div>
+      </StyleRoot>
     );
   }
 }

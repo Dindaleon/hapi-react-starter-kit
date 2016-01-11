@@ -1,9 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Logout from './auth/Logout';
 import SwitchLocale from './Locale';
-export default class Layout extends Component {
+import Menu from './Menu';
 
+// Needed for onTouchTap
+// Can go away when react 1.0 release
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin();
+class Layout extends Component {
   render() {
     const { user, logout, loadLocale, setLocale, pushState } = this.props;
     const childrenProps = this.props;
@@ -12,28 +18,25 @@ export default class Layout extends Component {
     });
     return (
       <div id="layout">
-        This is the Layout
+        <span className="mdl-layout-title">Hapi React SK</span>
         <br />
         SESSIONID: { user.sessionId ? user.sessionId : 'null' }
-        <br />
+        YOUR COORDINATES: { 'LAT:' + user.coordinates.latitude + ' LNG:' + user.coordinates.longitude }
         <SwitchLocale { ...this.props } />
-        <br />
-        { user.sessionId ? <Logout
-                              sessionId={ user.sessionId }
-                              logout={ logout }
-                              loadLocale={ loadLocale }
-                              setLocale={ setLocale }
-                              pushState={ pushState } /> : ''
+        { user.sessionId ?
+          <Logout
+            sessionId={ user.sessionId }
+            logout={ logout }
+            loadLocale={ loadLocale }
+            setLocale={ setLocale }
+            pushState={ pushState } /> : ''
         }
+
+        <Menu />
+
         { /* this.props.children */}
         { childrenWithProps }
 
-        <Link to={ '/' } > Go Index </Link>
-        <Link to={ '/home' } > Go home </Link>
-        <Link to={ '/login' } > Login </Link>
-        <Link to={ '/register' } > Register </Link>
-        <Link to={ '/hall' } > Rooms </Link>
-        <Link to={ '/dashboard' } > Dashboard </Link>
       </div>
     );
   }
@@ -49,3 +52,5 @@ Layout.propTypes = {
   switchLocale: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
+
+export default Layout;

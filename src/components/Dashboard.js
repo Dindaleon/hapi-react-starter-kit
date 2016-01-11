@@ -1,10 +1,28 @@
 import React, { Component, PropTypes } from 'react';
+import update from 'react-addons-update';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
-import update from 'react-addons-update';
+
+import TextField from '../themes/default/TextField';
+import Button from '../themes/default/Button';
 
 Promise.promisifyAll(fetch);
+
+const messages = defineMessages({
+  createRoomButton: {
+    id: 'rooms.createButton',
+    description: 'Create Rooms button',
+    defaultMessage: 'Create Room'
+  },
+  updateUserButton: {
+    id: 'user.updateButton',
+    description: 'User Update button',
+    defaultMessage: 'Update User'
+  }
+});
+
 export default class Dashboard extends Component {
 
   state = {
@@ -92,34 +110,34 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Dashboard</h1>
-        <p>You made it!</p>
         Edit user:
         <form onSubmit={ this.handleSubmitUserUpdate }>
-          <input type="text"
+          <TextField type="text"
                  name="name"
                  placeholder={ this.state.user.name }
                  value={ this.state.user.name }
                  onChange={ this.handleChangeUser } />
-          <input type="text"
+          <TextField type="text"
                  name="email"
                  placeholder={ this.state.user.email }
                  value={ this.state.user.email }
                  onChange={ this.handleChangeUser } />
-          <input type="button"
-                 value="Update User"
-                 onClick={ this.handleSubmitUserUpdate } />
+          <Button type="button"
+                 onClick={ this.handleSubmitUserUpdate }>
+            <FormattedMessage { ...messages.updateUserButton } />
+          </Button>
         </form>
         Create room:
         <form onSubmit={ this.handleSubmitCreateRoom }>
-          <input type="text"
+          <TextField type="text"
                  name="name"
                  placeholder={ this.state.room.name }
                  value={ this.state.room.name }
                  onChange={ this.handleChangeRoom } />
-          <input type="button"
-                 value="Create room"
-                 onClick={ this.handleSubmitCreateRoom } />
+          <Button type="button"
+                 onClick={ this.handleSubmitCreateRoom }>
+            <FormattedMessage { ...messages.createRoomButton } />
+          </Button>
         </form>
         <ul>
         { typeof this.state.lists.rooms.map === 'function' ?

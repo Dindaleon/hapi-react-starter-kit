@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { StyleRoot } from 'radium';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { getCookie, deleteCookie } from '../../helpers/cookieTools';
 import config from '../../config';
+import Button from '../../themes/default/Button';
 
 const messages = defineMessages({
   logoutButton: {
@@ -11,7 +13,7 @@ const messages = defineMessages({
   }
 });
 
-export default class Logout extends Component {
+class Logout extends Component {
   handleLogout = () => {
     const { logout, sessionId, loadLocale, setLocale, pushState } = this.props;
     logout(sessionId)
@@ -34,7 +36,9 @@ export default class Logout extends Component {
                        this.props.i18l.messages['auth.logout'] :
                        messages.logout.defaultMessage;*/
     return (
-      <button type="submit" onClick={ ::this.handleLogout } ><FormattedMessage { ...messages.logoutButton } /></button>
+      <StyleRoot>
+        <Button type="submit" onClick={ ::this.handleLogout } ><FormattedMessage { ...messages.logoutButton } /></Button>
+      </StyleRoot>
     );
   }
 }
@@ -49,3 +53,5 @@ Logout.propTypes = {
   ]).isRequired,
   setLocale: PropTypes.func.isRequired
 };
+
+export default Logout;

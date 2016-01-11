@@ -136,79 +136,95 @@ const users = {
     // if locale is changed
     // TODO: improve user swtich locale
     // perhaps implement a dedicated function
-    if ( request.payload.locale ) {
+    if ( switchLocale ) {
+      client.sismemberAsync(key + ':unique:ids', user.id)
+      .then( () => {
+        return client.hsetAsync(key + ':data:' + user.id, 'locale', request.payload.locale)
+        .then( () => {
+          return callback({ ok: 'OK', locale: request.payload.locale });
+        })
+        .catch( e => {
+          console.error('Error setting user locale: ', e.stack);
+          return callback(null);
+        });
+      })
+      .catch( e => {
+        console.error('Error finding user: ', e.stack);
+        return callback(null);
+      });
+    } else {
+    // Return if locale has been updated.
       client.sismemberAsync(key + ':unique:ids', user.id)
       .then( exists => {
         if (exists) {
-          client.hsetAsync(key + ':data:' + user.id, 'locale', request.payload.locale)
-          .then( () => {
-            if ( switchLocale ) {
-              return callback({ ok: 'OK', locale: request.payload.locale });
-            }
-          });
-        }
-      });
-    }
-    // Return if locale has been updated.
-    if ( switchLocale ) return;
-    client.sismemberAsync(key + ':unique:ids', user.id)
-    .then( exists => {
-      if (exists) {
-        client.hgetallAsync(key + ':data:' + user.id)
-        .then( _user => {
-          const multi = client.multi();
-          multi
-            .sismember(key + ':unique:usernames', user.username)
-            .sismember(key + ':unique:emails', user.email)
-            .execAsync()
-            .then( res => {
-              if ( res[0] === 1 && _user.username !== user.username ) {
-                return callback({
-                  error: 'username',
-                  username: user.username
-                });
-              } else if ( res[1] === 1 && _user.email !== user.email ) {
-                return callback({
-                  error: 'email',
-                  email: user.email
-                });
-              }
-              if (user.username !== null) {
-                multi
-                  .srem(key + ':unique:usernames', _user.username)
-                  .sadd(key + ':unique:usernames', user.username)
-                  .zrem(key + ':list:usernames', _user.username)
-                  .zadd(key + ':list:usernames', user.id, user.username)
-                  .hdel(key + ':usernames', _user.username)
-                  .hset(key + ':usernames', user.username, user.id)
-                  .execAsync();
-              } else {
-                user.username = _user.username;
-                // delete user.username;
-              }
+          client.hgetallAsync(key + ':data:' + user.id)
+          .then( _user => {
+            const multi = client.multi();
+            multi
+              .sismember(key + ':unique:usernames', user.username)
+              .sismember(key + ':unique:emails', user.email)
+              .execAsync()
+              .then( res => {
+                if ( res[0] === 1 && _user.username !== user.username ) {
+                  return callback({
+                    error: 'username',
+                    username: user.username
+                  });
+                } else if ( res[1] === 1 && _user.email !== user.email ) {
+                  return callback({
+                    error: 'email',
+                    email: user.email
+                  });
+                }
+                if (user.username !== null) {
+                  multi
+                    .srem(key + ':unique:usernames', _user.username)
+                    .sadd(key + ':unique:usernames', user.username)
+                    .zrem(key + ':list:usernames', _user.username)
+                    .zadd(key + ':list:usernames', user.id, user.username)
+                    .hdel(key + ':usernames', _user.username)
+                    .hset(key + ':usernames', user.username, user.id)
+                    .execAsync();
+                } else {
+                  user.username = _user.username;
+                  // delete user.username;
+                }
 
-              if (user.email !== null) {
-                multi
-                  .srem(key + ':unique:emails', _user.email)
-                  .sadd(key + ':unique:emails', user.email)
-                  .zrem(key + ':list:emails', _user.email)
-                  .zadd(key + ':list:emails', user.id, user.email)
-                  .hdel(key + ':emails', _user.email)
-                  .hset(key + ':emails', user.email, user.id)
-                  .execAsync();
-              } else {
-                user.email = _user.email;
-                // delete user.email;
-              }
-              // Hash user password
-              if (user.password !== null) {
-                Iron.sealAsync(
-                  user.password,
-                  config.iron.secret,
-                  Iron.defaults
-                )
-                .then( sealed => {
-                  user.password = sealed;
+                if (user.email !== null) {
+                  multi
+                    .srem(key + ':unique:emails', _user.email)
+                    .sadd(key + ':unique:emails', user.email)
+                    .zrem(key + ':list:emails', _user.email)
+                    .zadd(key + ':list:emails', user.id, user.email)
+                    .hdel(key + ':emails', _user.email)
+                    .hset(key + ':emails', user.email, user.id)
+                    .execAsync();
+                } else {
+                  user.email = _user.email;
+                  // delete user.email;
+                }
+                // Hash user password
+                if (user.password !== null) {
+                  Iron.sealAsync(
+                    user.password,
+                    config.iron.secret,
+                    Iron.defaults
+                  )
+                  .then( sealed => {
+                    user.password = sealed;
+                    client.hmsetAsync(key + ':data:' + user.id, user)
+                    .then( updated => {
+                      return callback({
+                        ok: updated,
+                        username: user.username,
+                        email: user.email
+                      });
+                    });
+                  }).catch( e => {
+                    console.error('error sealing password: ', e.stack);
+                  });
+                } else {
+                  delete user.password;
                   client.hmsetAsync(key + ':data:' + user.id, user)
                   .then( updated => {
                     return callback({
@@ -217,28 +233,16 @@ const users = {
                       email: user.email
                     });
                   });
-                }).catch( e => {
-                  console.error('error sealing password: ', e.stack);
-                });
-              } else {
-                delete user.password;
-                client.hmsetAsync(key + ':data:' + user.id, user)
-                .then( updated => {
-                  return callback({
-                    ok: updated,
-                    username: user.username,
-                    email: user.email
-                  });
-                });
-              }
-            });
-        }).catch( e => {
-          console.error('error: ', e.stack);
-        });
-      } else {
-        return callback(null);
-      }
-    });
+                }
+              });
+          }).catch( e => {
+            console.error('error: ', e.stack);
+          });
+        } else {
+          return callback(null);
+        }
+      });
+    }
   },
   /**
    *  Delete a user

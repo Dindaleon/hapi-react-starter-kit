@@ -1,20 +1,22 @@
 import React, { Component, PropTypes } from 'react';
+import { StyleRoot } from 'radium';
+import Button from '../themes/default/Button';
 
 class Counter extends Component {
   render() {
     const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
-      <p>
+      <StyleRoot id="counter-example">
         Clicked: {counter} times
         {' '}
-        <button onClick={increment}>+</button>
+        <Button onClick={increment}>+</Button>
         {' '}
-        <button onClick={decrement}>-</button>
+        <Button onClick={decrement}>-</Button>
         {' '}
-        <button onClick={incrementIfOdd}>Increment if odd</button>
+        <Button onClick={incrementIfOdd}>Increment if odd</Button>
         {' '}
-        <button onClick={() => incrementAsync()}>Increment async</button>
-      </p>
+        <Button onClick={() => incrementAsync()}>Increment async</Button>
+      </StyleRoot>
     );
   }
 }

@@ -83,7 +83,7 @@ const chat = {
     } else {
       lookup = keyRoom + ':list:ids';
     }
-    client.zrangeAsync(lookup, offset, limit)
+    return client.zrangeAsync(lookup, offset, limit)
     .then( ids => {
       if ( ids.length <= 0) {
         return callback(null);
@@ -91,7 +91,7 @@ const chat = {
       if ( idsArray !== null ) {
         ids = idsArray;
       }
-      Promise.map( ids, id => {
+      return Promise.map( ids, id => {
         return client.hgetallAsync(keyRoom + ':data:' + id)
         .then( room => {
           return {
@@ -111,6 +111,7 @@ const chat = {
       });
     }).catch( e => {
       console.error('error: ', e.stack);
+      return callback(null);
     });
   },
   /*
@@ -124,7 +125,7 @@ const chat = {
     if ( room.id === null || room.id <= 0 ) {
       return callback(null);
     }
-    client.lrangeAsync(keyRoom + ':data:' + room.id + ':messages', 0, -1)
+    return client.lrangeAsync(keyRoom + ':data:' + room.id + ':messages', 0, -1)
     .then( messages => {
       const messagesArray = [];
       const userIds = [];
@@ -137,7 +138,7 @@ const chat = {
       const uniqueIds = [ ...new Set(userIds) ];
       const mapUserNames = new Map();
 
-      Promise.each( uniqueIds, userId => {
+      return Promise.each( uniqueIds, userId => {
         return client.hgetAsync('users:data:' + userId, 'username')
         .then( userName => {
           return mapUserNames.set(userId, userName);

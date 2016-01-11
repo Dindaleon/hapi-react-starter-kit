@@ -1,13 +1,19 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
+
+// App Container
 import App from './containers/AppContainer';
-import Dashboard from './containers/DashboardContainer';
-import Home from './components/Home';
-import Hall from './containers/HallContainer';
-import Index from './components/Index';
+
+// Pages
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import Hall from './pages/Hall';
+import Index from './pages/Index';
 import RegisterPage from './pages/Register';
 import Rooms from './containers/RoomsContainer';
 import LoginPage from './pages/Login';
+
+// Actions
 import { load, isAuthLoaded } from './actions/userActions';
 import { loadLocale, isLocaleLoaded } from './actions/localeActions';
 
