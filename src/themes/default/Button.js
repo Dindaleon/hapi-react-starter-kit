@@ -11,6 +11,16 @@ const styles = {
     padding: '0.4em 1em',
     cursor: 'pointer',
     outline: 'none',
+    // The following attributes are for testing purposes
+    // to check Radium's auto prefixer
+    textStroke: '30px',
+    flexDirection: 'column',
+    boxOrient: 'vertical',
+    boxDirection: 'normal',
+    alignItems: 'stretch',
+    boxAlign: 'stretch',
+    flexShrink: 0,
+    alignContent: 'flex-start',
 
     '@media (min-width: 992px)': {
       padding: '0.6em 1.2em'

@@ -1,9 +1,9 @@
 import users from './users';
-import chat from './chat';
+import rooms from './rooms';
 
 const routes = {
   users,
-  chat
+  rooms
 };
 
 export default routes;

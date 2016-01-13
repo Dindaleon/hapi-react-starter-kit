@@ -459,7 +459,6 @@ const users = {
             .zrem(key + ':data:' + user.id + ':sessions:ids', user.session.id)
             .execAsync()
             .then( res => {
-
               return callback(res[0]);
             });
         } else {

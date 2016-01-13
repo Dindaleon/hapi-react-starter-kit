@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import Helmet from 'react-helmet';
 const messages = defineMessages({
   rooms: {
     id: 'rooms.rooms',
@@ -31,7 +30,6 @@ export default class Hall extends Component {
   render() {
     return (
       <div>
-       <Helmet title="The Hall" />
         { this.state.lists.rooms.length } <FormattedMessage {...messages.rooms} />
         <ul>
         {

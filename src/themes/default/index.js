@@ -12,7 +12,14 @@ export const body = {
   rules: {
     body: {
       margin: 0,
-      fontFamily: 'Roboto, Helvetica, Arial, sans-serif!important'
+      fontFamily: 'Roboto, Helvetica, Arial, sans-serif!important',
+      background: 'linear-gradient(top,  #3f77a4, #8bb6d0, #6e80b8 70%, #26447c)',
+      // The following attributes are for testing purposes
+      // to check Radium's auto prefixer
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      flexShrink: 0,
+      alignContent: 'flex-start',
     },
     mediaQueries: {
       '(max-width: 600px)': {

@@ -20,9 +20,6 @@ export const loadMessages = ( id ) => {
   return {
     type: [ LOAD_MESSAGES ],
     promise: ( client ) => client.get('/rooms/' + id + '/messages', {
-      /*params: {
-        authorization: true
-      },*/
       params: {
         id
       }

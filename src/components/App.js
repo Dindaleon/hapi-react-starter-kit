@@ -76,10 +76,11 @@ class App extends Component {
       <StyleRoot radiumConfig={
         { userAgent }
       }>
-       <Style
+        <Style
           { ...body }
         />
-			   <Layout {...this.props} />
+          <Helmet {...config.app.head} />
+			    <Layout {...this.props} />
       </StyleRoot>
 		);
   }

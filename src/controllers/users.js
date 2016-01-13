@@ -309,15 +309,7 @@ const userController = [
           reply({
             statusCode: 200,
             message: 'User Successfully Logged In.',
-            data: result /*{
-              id: result.id,
-              username: result.username,
-              email: result.email,
-              encrypted: result.encrypted,
-              sessionId: result.sessionId,
-              refreshToken: result.refreshToken,
-              accessToken: result.accessToken
-            }*/
+            data: result
           })
           .state('USER_SESSION', result.encrypted,
             {

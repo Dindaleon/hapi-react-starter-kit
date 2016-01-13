@@ -36,15 +36,34 @@ export default class Html extends Component {
   }
   render() {
     const { component, store } = this.props;
-    const componentHTML = component ? renderToString(component) : '';
+    let componentHTML = '';
+    let head          = '';
+    let base          = '';
+    let title         = '';
+    let meta          = '';
+    let link          = '';
+    let script        = '';
+    if (typeof component !== 'undefined') {
+      componentHTML = renderToString(component);
+      head = Helmet.rewind();
+    }
+    if (head) {
+      base   = head.base.toComponent();
+      title  = head.title.toComponent();
+      meta   = head.meta.toComponent();
+      link   = head.link.toComponent();
+      script = head.script.toComponent();
+    }
+
     const initialState = store.getState();
     return (
       <html lang="en-us">
         <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>hapi-react-starter-kit</title>
-          <link rel="shortcut icon" href="/favicon.ico" />
+          { base }
+          { title }
+          { meta }
+          { link }
+          { script }
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={

@@ -6,6 +6,7 @@ const config = {
       titleTemplate: 'Hapi React SK: %s',
       meta: [
         { name: 'description', content: 'A hapi React Starter kit with react-router, redux, react-transform.' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
         { charset: 'utf-8' },
         { property: 'og:site_name', content: 'Hapi React Starter Kit' },
         { property: 'og:locale', content: 'en_US' },
@@ -18,10 +19,13 @@ const config = {
         // { property: 'og:image', content: '' },
         // { property: 'og:image:width', content: '200' },
         // { property: 'og:image:height', content: '200' }
+      ],
+      link: [
+        { rel: 'shortcut icon', href: '/favicon.ico' }
       ]
     },
     theme: {
-      name: 'alternative'
+      name: 'default'
     }
   },
   server: {

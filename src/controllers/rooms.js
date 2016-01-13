@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import rooms from './functions/chat';
+import rooms from './functions/rooms';
 import config from '../config';
 
 /*
