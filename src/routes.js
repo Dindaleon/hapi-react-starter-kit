@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import Hall from './pages/Hall';
 import Index from './pages/Index';
 import RegisterPage from './pages/Register';
-import Rooms from './pages/Room';
+import Rooms from './containers/RoomsContainer';
 import LoginPage from './pages/Login';
 
 // Actions

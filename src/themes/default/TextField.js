@@ -21,18 +21,20 @@ const styles = {
     },
 
     ':hover': {
-      // backgroundColor: 'none'
+      //backgroundColor: 'none'
     },
 
     ':focus': {
-      // borderColor: '#000000'
-      border: '2px solid #2196F3',
-      margin: '1px',
+    //  borderColor: '#000000'
+    border: '2px solid #2196F3',
+    margin: '1px',
     },
 
     ':active': {
+      //backgroundColor: '#005299',
       border: '2px solid #2196F3',
       margin: '1px',
+      //transform: 'translateY(2px)',
     }
   },
 

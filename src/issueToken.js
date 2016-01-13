@@ -47,10 +47,6 @@ const register = ( server, options, next ) => {
         }
 
         // Set state session from client cookie
-        // Temp fix for multiple set cookies
-        if ( Array.isArray(request.state.USER_SESSION) ) {
-          request.state.USER_SESSION = request.state.USER_SESSION[0];
-        }
         Iron.unsealAsync(request.state.USER_SESSION, config.iron.secret, Iron.defaults)
         .then( unsealed => {
           request.state.session = unsealed;

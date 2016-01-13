@@ -2,9 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { StyleRoot } from 'radium';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { getCookie, deleteCookie } from '../../helpers/cookieTools';
-import { cleanRoomsList } from '../../actions/roomsActions';
 import config from '../../config';
-import { Button } from '../../themes';
+import Button from '../../themes/default/Button';
 
 const messages = defineMessages({
   logoutButton: {
@@ -16,7 +15,7 @@ const messages = defineMessages({
 
 class Logout extends Component {
   handleLogout = () => {
-    const { dispatch, logout, sessionId, loadLocale, setLocale, pushState } = this.props;
+    const { logout, sessionId, loadLocale, setLocale, pushState } = this.props;
     logout(sessionId)
     .then(() => {
       if (getCookie(config.user.session.name)) {
@@ -29,12 +28,13 @@ class Logout extends Component {
         // Set default locale after logout
         loadLocale(config.user.locale);
       }
-      // Clean reducers
-      dispatch(cleanRoomsList);
       pushState(null, '/');
     });
   }
   render() {
+   /* const logoutText = this.props.i18l.messages ?
+                       this.props.i18l.messages['auth.logout'] :
+                       messages.logout.defaultMessage;*/
     return (
       <StyleRoot>
         <Button type="submit" onClick={ ::this.handleLogout } ><FormattedMessage { ...messages.logoutButton } /></Button>
@@ -44,7 +44,6 @@ class Logout extends Component {
 }
 
 Logout.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   loadLocale: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,

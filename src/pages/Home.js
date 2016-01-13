@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import CounterContainer from '../containers/CounterApp';
 
 export default class Home extends React.Component {
@@ -15,7 +14,6 @@ export default class Home extends React.Component {
     const you = 'sad';
     return (
 			<div>
-        <Helmet title="Home" />
 				{ this.state.test } I am home!
         <div>I am { me }</div>
         <div>You are { you }</div>

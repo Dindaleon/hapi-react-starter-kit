@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { StyleRoot } from 'radium';
 import { Link } from 'react-router';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import Helmet from 'react-helmet';
-import { Button } from '../themes';
+import Button from '../themes/default/Button';
 
 const messages = defineMessages({
   welcomeMessage: {
@@ -22,7 +21,6 @@ export default class Index extends Component {
   render() {
     return (
 			<StyleRoot id="index">
-        <Helmet title="Index" />
         <div><FormattedMessage {...messages.welcomeMessage} /></div>
 				<Link to={ '/home' } ><Button><FormattedMessage { ...messages.takeMeHome } /></Button></Link>
 			</StyleRoot>

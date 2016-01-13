@@ -98,9 +98,9 @@ Tests are incomplete.
 
     Path: /api/v1/documentation
     
-**Deployment Guide**
+**OpenShift Deployment**
 
-[OpenShift Deployment](https://github.com/Dindaleon/hapi-react-starter-kit/blob/master/Guides/OpenShift_Deployment.md)
+TODO
 
 ##Todo
 * [ ] testing, testing, testing...

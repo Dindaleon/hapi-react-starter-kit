@@ -9,13 +9,12 @@ const mapStateToProps = ( state ) => {
   return {
     user: state.user.data,
     userAgent: state.user.agent,
-    pushState,
-    router: state.router
+    pushState
   };
 };
 
 const mapDispatchToProps = ( dispatch ) => {
-  return bindActionCreators({ ...UserActions, ...LocaleActions, pushState, dispatch }, dispatch );
+  return bindActionCreators({ ...UserActions, ...LocaleActions, pushState }, dispatch );
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( radium(App) );
