@@ -20,7 +20,12 @@ module.exports = function(config) {
     frameworks: [ 'mocha', 'sinon-chai'],
 
     // list of files / patterns to load in the browser
-    files: [ 'tests.bundle.js' ],
+    files: [ 
+     'src/components/Index.js',
+ 'test/components/Index.spec.js'
+   // 'tests.bundle.js'
+
+     ],
 
     // list of plugins
     plugins: [
@@ -30,13 +35,17 @@ module.exports = function(config) {
         'karma-mocha-reporter',
         'karma-sinon-chai',
         'karma-sourcemap-loader',
-        'karma-webpack'
+        'karma-webpack',
+        'karma-chrome-launcher',
+        'karma-phantomjs2-launcher'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'tests.bundle.js': [ 'webpack', 'sourcemap' ]
+     // 'tests.bundle.js': [ 'webpack', 'sourcemap' ]
+ 'src/components/Index.js': ['webpack'],
+      'test/components/Index.spec.js': ['webpack']
     },
 
     reporters: ['mocha', 'coverage'],
@@ -51,7 +60,7 @@ module.exports = function(config) {
         ],             
         loaders: [
           {
-            exclude: /node_modules/,
+            exclude: [/node_modules/, /static/, /coverage/],
             loader: 'babel',
             test: /\.js?$/,
             query: {
@@ -76,10 +85,10 @@ module.exports = function(config) {
     coverageReporter: {
       // configure the reporter to use isparta for JavaScript coverage
       // Only on { "karma-coverage": "douglasduteil/karma-coverage#next" }
-      instrumenters: { isparta : require('isparta') },
+     /* instrumenters: { isparta : require('isparta') },
       instrumenter: {
-        '**/*.js': 'isparta'
-      },
+        '**//**.js': 'isparta'
+      },*/
       dir: 'coverage/', //path to created html doc
       reporters: [
         { type: 'lcovonly', subdir: 'lcovonly', file: 'lcov.info' },
@@ -106,7 +115,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
