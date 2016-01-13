@@ -1,5 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages, FormattedMessage, FormattedRelative } from 'react-intl';
+import { StyleRoot } from 'radium';
+import {
+  defineMessages,
+  FormattedMessage,
+  FormattedRelative,
+  injectIntl, intlShape
+} from 'react-intl';
+import TextField from '../themes/default/TextField';
+import Button from '../themes/default/Button';
 
 const messages = defineMessages({
   rooms: {
@@ -9,8 +17,23 @@ const messages = defineMessages({
   },
   messages: {
     id: 'rooms.messages',
-    description: 'messages',
-    defaultMessage: 'Messages'
+    description: 'Messages word',
+    defaultMessage: '{quantity} messages'
+  },
+  messagesSingular: {
+    id: 'rooms.messagesSingular',
+    description: 'Messages (singular)',
+    defaultMessage: '{quantity} message'
+  },
+  sendMessageButton: {
+    id: 'rooms.sendMessageButton',
+    description: 'Send a message button',
+    defaultMessage: 'Send!'
+  },
+  sendMessageInput: {
+    id: 'rooms.sendMessageInput',
+    description: 'Send a message input field',
+    defaultMessage: 'Send a message'
   },
   userIsTyping: {
     id: 'rooms.userIsTyping',
@@ -18,18 +41,18 @@ const messages = defineMessages({
     defaultMessage: '{name} is typing...'
   }
 });
-export default class Room extends Component {
+class Room extends Component {
 
   state = {
     roomId: 0,
     message: '',
     messages: [],
     isTyping: false,
-    userTyping: null,
+    userTyping: null
   }
 
   componentWillMount() {
-    this.setState({ roomId: this.props.params.id });
+    this.setState({ roomId: this.props.roomId });
   }
   componentDidMount() {
     const messages = [];
@@ -94,7 +117,7 @@ export default class Room extends Component {
       return;
     }
     socket.emit('msg', {
-      roomId: this.props.params.id,
+      roomId: this.props.roomId,
       accessToken: user.accessToken,
       username: user.username,
       text: msg,
@@ -120,9 +143,19 @@ export default class Room extends Component {
   }
 
   render() {
+    const { formatMessage } = this.props.intl;
+    const messagesLength = this.state.messages.length;
     return (
-      <div id="room">
-          { this.state.messages.length } <FormattedMessage {...messages.messages} />
+      <div>
+        <h3>
+          {
+            messagesLength === 1
+            ?
+            <FormattedMessage {...messages.messagesSingular} values={ { quantity: messagesLength } } />
+            :
+            <FormattedMessage {...messages.messages} values={ { quantity: messagesLength } } />
+          }
+        </h3>
         <ul>
         {
           this.state.messages.length !== 0
@@ -135,17 +168,20 @@ export default class Room extends Component {
         }
         </ul>
         <form onSubmit={ this.handleSubmit }>
-          <input type="text" value={ this.state.message } onChange={ this.handleChange } placeholder="send a message:" />
-          <input type="button" value="Send!" onClick={ this.handleSubmit } />
+          <TextField type="text" value={ this.state.message } onChange={ this.handleChange } placeholder={ formatMessage(messages.sendMessageInput) } />
+          <Button onClick={ this.handleSubmit } ><FormattedMessage { ...messages.sendMessageButton } /></Button>
         </form>
-        <div>{ this.state.userTyping ? <FormattedMessage {...messages.userIsTyping} values={{ name: this.state.userTyping }} /> : '' }</div>
+        <div>{ this.state.userTyping ? <FormattedMessage {...messages.userIsTyping} values={ { name: this.state.userTyping } } /> : '' }</div>
       </div>
     );
   }
 }
 
 Room.propTypes = {
+  intl: intlShape.isRequired,
   loadMessages: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
+  roomId: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };
+
+export default injectIntl(Room);

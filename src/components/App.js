@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleRoot } from 'radium';
+import { Style, StyleRoot } from 'radium';
 import Promise from 'bluebird';
+import Helmet from 'react-helmet';
 import Layout from '../components/Layout';
 import { load, isAuthLoaded } from '../actions/userActions';
 import { loadLocale } from '../actions/localeActions';
 import connectData from '../helpers/connectData';
 
 import config from '../config';
+import { body } from '../themes';
 
 const fetchData = (getState, dispatch) => {
   const promises = [];
@@ -70,14 +72,14 @@ class App extends Component {
 
   render() {
     const { userAgent } = this.props;
-
-
     return (
-
       <StyleRoot radiumConfig={
         { userAgent }
       }>
-			  <Layout {...this.props} />
+       <Style
+          { ...body }
+        />
+			   <Layout {...this.props} />
       </StyleRoot>
 		);
   }

@@ -55,7 +55,7 @@ class TextField extends Component {
       fontFamily: 'Roboto, Helvetica, Arial, sans-serif!important',
       fontSize: 14,
       fontWeight: '500',
-      backgroundColor: '#2196F3',
+      backgroundColor: '#212121',
       color: 'rgba(255, 255, 255, .7)',
       position: 'relative',
       textTransform: 'uppercase',
@@ -111,7 +111,7 @@ class TextField extends Component {
       marginTop: '-2px',
       position: 'relative',
       transition: 'left 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0ms, width 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-      backgroundColor: 'rgb(255, 245, 157)'
+      backgroundColor: '#D50000'
     };
     return bottomBorder;
   }
