@@ -1,5 +1,6 @@
 import { LOAD_MESSAGES_REQUEST, LOAD_MESSAGES_SUCCESS, LOAD_MESSAGES_FAILURE,
          RESET_MESSAGES, RESET_MESSAGES_SUCCESS, RESET_MESSAGES_FAILURE,
+         CLEAN_ROOMS_LIST,
          CREATE_ROOM_REQUEST, CREATE_ROOM_SUCCESS, CREATE_ROOM_FAILURE,
          LIST_ROOM_REQUEST, LIST_ROOM_SUCCESS, LIST_ROOM_FAILURE
        } from '../actions/roomsActions';
@@ -15,6 +16,15 @@ const initialState = {
 
 export default function rooms(state = initialState, action = {}) {
   switch (action.type) {
+    case CLEAN_ROOMS_LIST: {
+      return {
+        ...state,
+        listed: false,
+        data: {
+          lists: []
+        }
+      };
+    }
     case CREATE_ROOM_REQUEST: {
       return {
         ...state,

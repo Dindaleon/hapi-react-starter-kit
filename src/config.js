@@ -1,4 +1,29 @@
 const config = {
+  app: {
+    title: 'Hapi React SK',
+    description: 'A hapi React Starter kit with react-router, redux, react-transform.',
+    head: {
+      titleTemplate: 'Hapi React SK: %s',
+      meta: [
+        { name: 'description', content: 'A hapi React Starter kit with react-router, redux, react-transform.' },
+        { charset: 'utf-8' },
+        { property: 'og:site_name', content: 'Hapi React Starter Kit' },
+        { property: 'og:locale', content: 'en_US' },
+        { property: 'og:title', content: 'Hapi React Starter Kit' },
+        { property: 'og:description', content: 'A hapi React Starter kit with react-router, redux, react-transform.' },
+        { property: 'og:card', content: 'summary' },
+        { property: 'og:site', content: '@Dindaleon' },
+        { property: 'og:creator', content: '@Dindaleon' },
+        { property: 'og:title', content: 'Hapi React Starter Kit' },
+        // { property: 'og:image', content: '' },
+        // { property: 'og:image:width', content: '200' },
+        // { property: 'og:image:height', content: '200' }
+      ]
+    },
+    theme: {
+      name: 'alternative'
+    }
+  },
   server: {
     auth: {
       scheme: 'jwt',
@@ -26,8 +51,6 @@ const config = {
     redirectOnRegister: 'dashboard'
   },
   redis: {
-    //HOST: REDIS_HOST || 'localhost',
-    //PORT: REDIS_PORT || 6379,
     PASSWORD: 'ZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5',
     DBNUMBER: 1, // select redis database number. Default: 0
     key: {
@@ -47,6 +70,7 @@ const config = {
     }
   },
   iron: {
+    // Generate your own key at: https://www.grc.com/passwords.htm
     secret: '24CC51A1D75D4736AEB38782617DEDC02E7A79ECD6FA9D49545386B138AC6658'
   }
 };

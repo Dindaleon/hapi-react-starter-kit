@@ -3,8 +3,8 @@ import radium from 'radium';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { setCookie } from '../../helpers/cookieTools';
 import config from '../../config';
-import Button from '../../themes/default/Button';
-import TextField from '../../themes/default/TextField';
+import { Button }from '../../themes';
+import { TextField } from '../../themes';
 const messages = defineMessages({
   loginButton: {
     id: 'auth.loginButton',

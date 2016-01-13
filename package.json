@@ -1,6 +1,6 @@
 {
   "name": "hapi-react-starter-kit",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A hapi React Starter kit with react-router, redux, react-transform",
   "main": "index.js",
   "scripts": {
@@ -81,6 +81,7 @@
     "react": "^0.14.3",
     "react-addons-update": "^0.14.3",
     "react-dom": "^0.14.0",
+    "react-helmet": "^2.2.0",
     "react-intl": "^2.0.0-beta-2",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",

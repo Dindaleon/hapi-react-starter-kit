@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { renderToString } from 'react-dom/server';
 import serialize from 'serialize-javascript';
-
+import Helmet from 'react-helmet';
 // Import assets
 const scripts = [];
 if (!__DEVELOPMENT__) {
