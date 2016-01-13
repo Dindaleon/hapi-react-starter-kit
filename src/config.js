@@ -21,7 +21,7 @@ const config = {
       ]
     },
     theme: {
-      name: 'default'
+      name: 'alternative'
     }
   },
   server: {
