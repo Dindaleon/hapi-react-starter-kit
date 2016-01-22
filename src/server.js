@@ -136,6 +136,7 @@ const startServer = ( callback ) => {
       register: rooms,
       options: {
         server: wsServer
+        // server: apiServer //enable this for deployment on OpenShift
       }
     }
   ], (err) => {
@@ -187,7 +188,7 @@ const startServer = ( callback ) => {
           const store = configureStore(reduxReactRouter, getRoutes, activeReducers, createHistory, client);
 
           const output = (
-            renderToString( <Html store={ store }/> )
+            renderToString( <Html store={ store } /> )
           );
 
           const hydrateOnClient = () => {
