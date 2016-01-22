@@ -34,7 +34,8 @@ export default class Html extends Component {
     component: PropTypes.node,
     store: PropTypes.object,
     initialState: PropTypes.object
-  }
+  };
+
   render() {
     const { component, store } = this.props;
     let componentHTML = '';

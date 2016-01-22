@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import Theme from '../themes';
 
 class Bar extends Component {
-  state = {}
+  state = {};
 
   render() {
     return (
-        <Theme render="AppBar" { ...this.props } />
+      <Theme render="AppBar" { ...this.props } />
     );
   }
 }

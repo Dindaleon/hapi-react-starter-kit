@@ -35,7 +35,8 @@ export default class Dashboard extends Component {
     lists: {
       rooms: this.props.rooms.data.lists || []
     }
-  }
+  };
+
   componentDidMount() {
     const query = {
       owner: parseInt(this.state.user.id, 10)
@@ -60,7 +61,7 @@ export default class Dashboard extends Component {
       // User updated...
       // Do stuff after updating user
     });
-  }
+  };
 
   handleSubmitCreateRoom = event => {
     event.preventDefault();
@@ -87,7 +88,7 @@ export default class Dashboard extends Component {
         this.setState({ lists: { rooms }});
       }
     });
-  }
+  };
 
   handleChangeUser = event => {
     this.setState(
@@ -95,7 +96,7 @@ export default class Dashboard extends Component {
         { user: { [event.target.name]: { $set: event.target.value }}}
       )
     );
-  }
+  };
 
   handleChangeRoom = event => {
     this.setState(
@@ -103,7 +104,7 @@ export default class Dashboard extends Component {
         { room: { [event.target.name]: { $set: event.target.value }}}
       )
     );
-  }
+  };
 
   render() {
     return (

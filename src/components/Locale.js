@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 export default class Locale extends Component {
   // Change locale on user input
   handleLocaleOnChange = event => {
@@ -18,12 +19,13 @@ export default class Locale extends Component {
         this.props.loadLocale(user.locale);
       });
     }
-  }
+  };
+
   render() {
     return (
       <div id="switchLocale">
         user locale is { ' ' }
-      {/* TODO: Convert to array of available languages*/}
+      {/* TODO: Convert to array of available languages */}
           <select value={ this.props.user.locale } onChange={ this.handleLocaleOnChange }>
             <option value="es">Spanish</option>
             <option value="en">English</option>
