@@ -21,12 +21,18 @@ const messages = defineMessages({
 class Index extends Component {
   render() {
     return (
-			<StyleRoot id="index">
+      <StyleRoot id="index">
         <Helmet title="Index" />
-        <div><FormattedMessage {...messages.welcomeMessage} /></div>
-				<Link to={ '/home' } ><Theme render="Button"><FormattedMessage { ...messages.takeMeHome } /></Theme></Link>
-			</StyleRoot>
-		);
+        <div>
+          <FormattedMessage { ...messages.welcomeMessage } />
+        </div>
+        <Link to={ '/home' }>
+          <Theme render="Button">
+            <FormattedMessage { ...messages.takeMeHome } />
+          </Theme>
+        </Link>
+      </StyleRoot>
+    );
   }
 }
 
