@@ -38,6 +38,7 @@ const config = {
       // Pick a strong algorithm
       algorithms: 'HS256'
     },
+    protocol: 'http://',
     // Websockets server
     ws: {
       // replace with your production host

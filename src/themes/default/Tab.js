@@ -12,10 +12,34 @@ class TextField extends Component {
   componentWillMount() {
     const currentRoute = this.props.router.location.pathname;
     this.setState({ selectedRoute: currentRoute });
+<<<<<<< HEAD
   };
+=======
+    // this._componentUpdateOnChange(currentRoute);
+  }
+>>>>>>> refs/remotes/origin/master
 
   componentWillReceiveProps = () => {
     const currentRoute = this.props.router.location.pathname;
+    this._componentUpdateOnChange(currentRoute);
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const currentRoute = this.props.router.location.pathname;
+    const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
+    let itemWidth = 0;
+    let offsetLeft = 0;
+    if ( currentItem !== null ) {
+      itemWidth = currentItem.offsetWidth;
+      offsetLeft = currentItem.offsetLeft;
+    }
+    if (prevState.itemWidth !== itemWidth) {
+      this.setState({ itemWidth: itemWidth });
+      this.setState({ offsetLeft: offsetLeft });
+    }
+  }
+
+  _componentUpdateOnChange(currentRoute) {
     const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
     const oldItem = this.state.selectedElement;
 
@@ -35,6 +59,7 @@ class TextField extends Component {
     this.setState({ offsetLeft: offsetLeft });
   };
 
+<<<<<<< HEAD
   componentDidUpdate = (prevProps, prevState) => {
     const currentRoute = this.props.router.location.pathname;
     const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
@@ -50,6 +75,8 @@ class TextField extends Component {
     }
   };
 
+=======
+>>>>>>> refs/remotes/origin/master
   styles = {
     base: {
       fontFamily: 'Roboto, Helvetica, Arial, sans-serif!important',

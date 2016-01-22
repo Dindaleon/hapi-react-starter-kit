@@ -74,7 +74,7 @@ Theme.propTypes = {
   styleSwitcher: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = state => {
   return {
     styleSwitcher: state.styleSwitcher
   };

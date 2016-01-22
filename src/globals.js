@@ -8,6 +8,7 @@ global.__DEVELOPMENT__ = enviroment === 'development';
 global.__PRODUCTION__ = enviroment === 'production';
 
 // Define defaults for development
+let defaultServerProtcol = 'http://';
 let defaultServerHOST = 'localhost';
 let defaultServerPORT = 3000;
 let defaultWsHost = 'localhost';
@@ -18,6 +19,7 @@ let defaultRedisDbNumber = 1;
 // Define defaults for production
 
 if ( __PRODUCTION__ ) {
+  defaultServerProtcol = config.server.protocol;
   defaultServerHOST = 'localhost';
   defaultServerPORT = 8080;
   defaultWsHost = config.server.ws.host;
@@ -28,7 +30,7 @@ if ( __PRODUCTION__ ) {
 }
 
 // Define protocol (http or https)
-const PROTOCOL = 'http://';
+const PROTOCOL = defaultServerProtcol;
 // Define cloud server host and port (For deployments) eg: OpenShift, Heorku...
 const serverHOST = process.env.OPENSHIFT_NODEJS_IP; // REPLACE WITH YOUR SERVER's IP
 const serverPORT = process.env.OPENSHIFT_NODEJS_PORT; // REPLACE WITH YOUR SERVER's PORT
