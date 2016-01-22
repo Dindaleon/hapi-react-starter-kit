@@ -5,7 +5,6 @@ class Counter extends Component {
     const { login, logout, isLoggedIn } = this.props;
     return (
       <p>
-
         is logged in? { isLoggedIn ? 'TRUE' : 'FALSE' }
         { ' ' }
         <button onClick = { login }>Login</button>

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { defineMessages, FormattedMessage } from 'react-intl';
+
 const messages = defineMessages({
   rooms: {
     id: 'rooms.rooms',
@@ -13,13 +14,14 @@ const messages = defineMessages({
     defaultMessage: 'No rooms available.'
   }
 });
+
 export default class Hall extends Component {
 
   state = {
     lists: {
       rooms: this.props.rooms.data.lists || []
     }
-  }
+  };
 
   componentDidMount() {
     this.props.list().then( action => {

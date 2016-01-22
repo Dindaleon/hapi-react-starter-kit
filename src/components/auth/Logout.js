@@ -33,7 +33,7 @@ class Logout extends Component {
       dispatch(cleanRoomsList);
       pushState(null, '/');
     });
-  }
+  };
   render() {
     return (
       <StyleRoot>

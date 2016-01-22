@@ -19,7 +19,8 @@ class RenderExtension extends Component {
       }
     }
     return isActive;
-  }
+  };
+
   render() {
     const customRequire = extensionName => {
       let component = EmptyComponent;
@@ -35,7 +36,6 @@ class RenderExtension extends Component {
       }
       return component;
     };
-
 
     const ExtensionComponent = customRequire(this.props.name);
 
