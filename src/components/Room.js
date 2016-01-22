@@ -39,6 +39,7 @@ const messages = defineMessages({
     defaultMessage: '{name} is typing...'
   }
 });
+
 class Room extends Component {
 
   state = {
@@ -52,6 +53,7 @@ class Room extends Component {
   componentWillMount() {
     this.setState({ roomId: this.props.roomId });
   }
+
   componentDidMount() {
     const messages = [];
     this.props.loadMessages(this.state.roomId).then( action => {

@@ -74,7 +74,7 @@ class App extends Component {
   render() {
     const { userAgent } = this.props;
     return (
-      <StyleRoot radiumConfig={{ userAgent }}>
+      <StyleRoot radiumConfig={ { userAgent } }>
         <ThemeBody render="body" />
           <Helmet {...config.app.head} />
 			    <Layout {...this.props} />

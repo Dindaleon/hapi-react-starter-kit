@@ -36,6 +36,7 @@ export default class Dashboard extends Component {
       rooms: this.props.rooms.data.lists || []
     }
   };
+
   componentDidMount() {
     const query = {
       owner: parseInt(this.state.user.id, 10)

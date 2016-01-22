@@ -6,7 +6,7 @@ class Bar extends Component {
 
   render() {
     return (
-        <Theme render="AppBar" { ...this.props } />
+      <Theme render="AppBar" { ...this.props } />
     );
   }
 }

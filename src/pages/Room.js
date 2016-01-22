@@ -6,17 +6,19 @@ import Room from '../containers/RoomContainer';
 export default class HallPage extends Component {
   state = {
     roomId: 0
-  }
+  };
+
   componentWillMount() {
     this.setState({ roomId: this.props.params.id });
   }
 
   render() {
-    const title = 'Room ' + this.state.roomId;
+    const {roomId} = this.state;
+    const title = 'Room ' + roomId;
     return (
       <StyleRoot id="room">
         <Helmet title={ title } />
-        <Room roomId={ this.state.roomId } />
+        <Room roomId={ roomId } />
       </StyleRoot>
     );
   }

@@ -74,7 +74,6 @@ export default class Login extends Component {
       </form>
     );
   }
-
 }
 
 Login.propTypes = {
