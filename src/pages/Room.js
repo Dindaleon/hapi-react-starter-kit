@@ -13,7 +13,7 @@ export default class HallPage extends Component {
   }
 
   render() {
-    const {roomId} = this.state;
+    const { roomId } = this.state;
     const title = 'Room ' + roomId;
     return (
       <StyleRoot id="room">
