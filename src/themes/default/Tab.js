@@ -7,13 +7,13 @@ class TextField extends Component {
     selectedElement: null,
     itemWidth: 0,
     offsetLeft: 0
-  }
+  };
 
   componentWillMount() {
     const currentRoute = this.props.router.location.pathname;
     this.setState({ selectedRoute: currentRoute });
     // this._componentUpdateOnChange(currentRoute);
-  }
+  };
 
   componentWillReceiveProps = () => {
     const currentRoute = this.props.router.location.pathname;
@@ -53,7 +53,22 @@ class TextField extends Component {
     }
     this.setState({ itemWidth: itemWidth });
     this.setState({ offsetLeft: offsetLeft });
-  }
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const currentRoute = this.props.router.location.pathname;
+    const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
+    let itemWidth = 0;
+    let offsetLeft = 0;
+    if ( currentItem !== null ) {
+      itemWidth = currentItem.offsetWidth;
+      offsetLeft = currentItem.offsetLeft;
+    }
+    if (prevState.itemWidth !== itemWidth) {
+      this.setState({ itemWidth: itemWidth });
+      this.setState({ offsetLeft: offsetLeft });
+    }
+  };
 
   styles = {
     base: {
@@ -87,7 +102,7 @@ class TextField extends Component {
     selectedItem: {
       color: '#fff'
     }
-  }
+  };
 
   getItemStyle = () => {
     const item = {
@@ -103,7 +118,7 @@ class TextField extends Component {
       textDecoration: 'none'
     };
     return item;
-  }
+  };
 
   getBottomBorder = () => {
     const offsetLeft = this.state.offsetLeft;
@@ -119,13 +134,14 @@ class TextField extends Component {
       backgroundColor: 'rgb(255, 245, 157)'
     };
     return bottomBorder;
-  }
+  };
 
   handleClick = event => {
     event.preventDefault();
     this.setState({ selectedRoute: event.target.getAttribute('data-to') });
     this.props.pushState(null, event.target.getAttribute('data-to'));
-  }
+  };
+
   render() {
     return (
       <div style={ this.styles.base }>
@@ -137,7 +153,7 @@ class TextField extends Component {
         <div style={ this.getBottomBorder() } />
       </div>
     );
-  }
+  };
 }
 
 TextField.propTypes = {
