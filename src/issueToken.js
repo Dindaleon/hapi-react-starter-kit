@@ -51,17 +51,15 @@ const register = ( server, options, next ) => {
         if ( Array.isArray(request.state.USER_SESSION) ) {
           request.state.USER_SESSION = request.state.USER_SESSION[0];
         }
-        Iron.unsealAsync(request.state.USER_SESSION, config.iron.secret, Iron.defaults)
-        .then( unsealed => {
-          request.state.session = unsealed;
-
-          return reply.continue();
-        })
-        .catch( e => {
-          // Set request state session object to null when cookie/session
-          // data is corrupted or unavailable
-          console.error('error unsealing session data: ', e.stack);
-          request.state.session = null;
+        Iron.unseal(request.state.USER_SESSION, config.iron.secret, Iron.defaults, (error, unsealed) => {
+          if (!error) {
+            request.state.session = unsealed;
+          } else {
+            // Set request state session object to null when cookie/session
+            // data is corrupted or unavailable
+            console.error('error unsealing session data: ', error.stack);
+            request.state.session = null;
+          }
           return reply.continue();
         });
       } else {
@@ -76,6 +74,7 @@ const register = ( server, options, next ) => {
 };
 
 register.attributes = {
+  // TODO: find a better name
   name: 'issueToken',
   version: '0.0.1'
 };

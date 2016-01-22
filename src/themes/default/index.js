@@ -39,6 +39,10 @@ export const body = {
   }
 };
 
+// TODO Layouts
+// eg: three columns, wide, stretch
+
+// Theme Components
 export const components = {
   AppBar,
   Button,

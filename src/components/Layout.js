@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import Helmet from 'react-helmet';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Logout from './auth/Logout';
 import SwitchLocale from './Locale';
+import RenderExtension from '../extensions';
 import AppBar from './AppBar';
 import Menu from './Menu';
 import config from '../config';
@@ -27,6 +27,7 @@ class Layout extends Component {
         <br />
         YOUR COORDINATES: { 'LAT:' + user.coordinates.latitude + ' LNG:' + user.coordinates.longitude }
         <SwitchLocale { ...this.props } />
+        <RenderExtension name="styleSwitcher" />
         { user.sessionId ?
           <Logout
             dispatch={ dispatch }

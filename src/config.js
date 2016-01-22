@@ -37,6 +37,12 @@ const config = {
       secret: '24CC51A1D75D4736AEB38782617DEDC02E7A79ECD6FA9D49545386B138AC6658',
       // Pick a strong algorithm
       algorithms: 'HS256'
+    },
+    // Websockets server
+    ws: {
+      // replace with your production host
+      host: 'http://hapi-reactstarterkit.rhcloud.com',
+      port: 8000
     }
   },
   user: {

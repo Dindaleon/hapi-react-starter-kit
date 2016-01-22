@@ -29,6 +29,7 @@ This repo was inspired by the following projects and their authors
 * Webpack + [React-transform](https://github.com/gaearon/babel-plugin-react-transform) and [react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
 * React Router keeps your UI in sync with the URL. - [react-router](https://github.com/rackt/react-router)
 * Flux implementation - [Redux](https://github.com/rackt/redux)
+* Document Head SSR by [React-Helmet](https://github.com/nfl/react-helmet)
 * ES6 and ES7 ready. - [BabelJs](https://babeljs.io/)
 * Linting with eslint & jscs
 * Testing with karma, mocha, isparta, webpack, sinon-chai
@@ -47,6 +48,24 @@ This repo was inspired by the following projects and their authors
 * Inline CSS Styling - [Radium](https://github.com/FormidableLabs/radium)
 * OpenShift deployment READY.
 
+**_NEW_ Theming System** WIP
+* Drop in themes
+  - Drop your theme inside the `Themes` folder and it will just work.
+* Theme switcher extension: swtich to other themes on the fly.
+* Fallback to default theme.
+* Themes included
+  - Default (light theme)
+  - Alternative (dark theme)
+* Powered by Radium.
+
+**_NEW_ Extensions System** WIP
+* Drop in extensions
+  - Drop your extension inside the `Extensions` folder and it will just work.
+  - Extensions can have react components and redux reducers.
+* Examples included
+  - Counter
+  - Theme switcher.
+
 **User Accounts**
 * Create/Update user accounts
 * Login/Logout
@@ -55,7 +74,7 @@ This repo was inspired by the following projects and their authors
 
 **User Rooms** (powered by socket.io)
 * Users can create multiple chat rooms
-* See who is typing
+* Users can see who is typing
 
 ## DEMO
 
@@ -115,13 +134,18 @@ Tests are incomplete.
 * [x] OpenShift Deployment guide
 * [ ] Heroku Deployment guide
 * [ ] Documentation
+* [ ] Fix webpack's HMR on server
 * [ ] Implement error handling on react components
 * [x] Implement geolocalization
-* [ ] Implement styling
+* [x] Implement styling and theming system
+* [ ] Implement layout system for themes
+* [x] Implement extensions system
+* [ ] Implement pages system with routing
 * [ ] Invalidate reducers
 * [ ] More translations
-* [ ] Re-structure components and pages
+* [x] Re-structure components and pages
 * [ ] Scaling Redis/Socketio
+* [ ] Social integration with bell for user accounts
 
 ## License 
 MIT

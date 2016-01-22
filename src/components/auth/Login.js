@@ -3,8 +3,8 @@ import radium from 'radium';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { setCookie } from '../../helpers/cookieTools';
 import config from '../../config';
-import { Button }from '../../themes';
-import { TextField } from '../../themes';
+import Theme from '../../themes';
+
 const messages = defineMessages({
   loginButton: {
     id: 'auth.loginButton',
@@ -65,12 +65,12 @@ export default class Login extends Component {
   render() {
     return (
       <form onSubmit={ ::this.handleLogin }>
-        <TextField type="text" name="username" value={ this.state.username } placeholder="username" onChange={ ::this.handleChangeLoginFields } />
+        <Theme render="TextField" type="text" name="username" value={ this.state.username } placeholder="username" onChange={ ::this.handleChangeLoginFields } />
         <br />
-        <TextField type="password" name="password" value={ this.state.password } placeholder="password" onChange={ ::this.handleChangeLoginFields } />
-        <Button color="accent" onClick={ ::this.handleLogin }>
+        <Theme render="TextField" type="password" name="password" value={ this.state.password } placeholder="password" onChange={ ::this.handleChangeLoginFields } />
+        <Theme render="Button" color="accent" onClick={ ::this.handleLogin }>
           <FormattedMessage { ...messages.loginButton } />
-        </Button>
+        </Theme>
       </form>
     );
   }

@@ -4,7 +4,8 @@ import radium from 'radium';
 const styles = {
   base: {
     fontSize: 16,
-    backgroundColor: '#2196F3',
+    // background: 'linear-gradient( -90deg, rgb(255,94,58) 0%, rgb(255,42,104) 100%)',
+    background: '#2196F3',
     color: '#fff',
     border: 0,
     outline: 'none',
@@ -44,6 +45,29 @@ const styles = {
       lineHeight: '64px',
       marginLeft: '80px'
     }
+  },
+  boxi: {
+    transition: 'transform 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+    boxSizing: 'border-box',
+    tapHighlightColor: 'rgba(0, 0, 0, 0)',
+    boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px',
+    borderRadius: '2px',
+    opacity: 1,
+    transform: 'scaleY(1)',
+    transformOrigin: 'left top 0px',
+    position: 'fixed',
+    zIndex: 2100,
+    maxHeight: '349px',
+    overflowY: 'auto',
+    top: '141.188px',
+    left: '352px',
+    backgroundColor: 'rgb(255, 255, 255)'
+  },
+  span: {
+    color: '#000',
+    cursor: 'pointer',
+    padding: '2px 24px',
+    width: '300px'
   }
 };
 
@@ -67,6 +91,9 @@ class AppBar extends Component {
           <a href={ this.props.title.to } style={ styles.title } onClick={ this.handleOnClick }>{ this.props.title.text }</a>
         </div>
         { this.props.children }
+        {/*<div style={ styles.boxi }>
+          <span style={ styles.span}>item one</span>
+        </div>  */}      
       </div>
     );
   }

@@ -4,7 +4,8 @@ import radium from 'radium';
 const styles = {
   base: {
     fontSize: 16,
-    backgroundColor: '#212121',
+    // backgroundColor: '#212121',
+    background: 'linear-gradient( -90deg, rgb(255,94,58) 0%, rgb(255,42,104) 100%)',
     color: '#fff',
     border: 0,
     outline: 'none',

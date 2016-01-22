@@ -7,15 +7,15 @@ class Counter extends Component {
     const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
       <StyleRoot id="counter-example">
-        Clicked: {counter} times
-        {' '}
-        <Button onClick={increment}>+</Button>
-        {' '}
-        <Button onClick={decrement}>-</Button>
-        {' '}
-        <Button onClick={incrementIfOdd}>Increment if odd</Button>
-        {' '}
-        <Button onClick={() => incrementAsync()}>Increment async</Button>
+        Clicked: { counter } times
+        { ' ' }
+        <Button onClick={ increment }>+</Button>
+        { ' ' }
+        <Button onClick={ decrement }>-</Button>
+        { ' ' }
+        <Button onClick={ incrementIfOdd }>Increment if odd</Button>
+        { ' ' }
+        <Button onClick={ () => incrementAsync() }>Increment async</Button>
       </StyleRoot>
     );
   }

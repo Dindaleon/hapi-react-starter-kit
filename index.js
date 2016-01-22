@@ -10,18 +10,11 @@ const chalk = require( 'chalk' );
 require('./src/globals');
 global.__SERVER__ = true;
 
-if ( __DEVELOPMENT__ ) {
-  const devServer = require( './webpack/devServer' ).default;
-  devServer( server => {
-    for ( var key of Object.keys(server.connections) ) {
-      console.info( chalk.bold.green( '==> 🌎 Hapi Development Server (' + server.connections[key].name + ') is listening on', server.connections[key].info.uri ));
-    }
-  });
-} else {
-  const server = require( './src/server' ).default;
-  server( server => {
-    for ( var key of Object.keys(server.connections) ) {
-      console.info( chalk.bold.green( '==> 🌎 Hapi Production Server (' + server.connections[key].name + ') is listening on', server.connections[key].info.uri ));
-    }
-  });
-}
+const enviroment = __DEVELOPMENT__ ? 'Development' : 'Production';
+
+const server = require( './src/server' ).default;
+server( server => {
+  for ( var key of Object.keys(server.connections) ) {
+    console.info( chalk.bold.green( '==> 🌎 Hapi ' + enviroment + ' Server (' + server.connections[key].name + ') is listening on', server.connections[key].info.uri ));
+  }
+});

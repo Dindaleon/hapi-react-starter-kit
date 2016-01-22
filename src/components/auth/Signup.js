@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { setCookie } from '../../helpers/cookieTools';
 import config from '../../config';
-import Button from '../../themes/default/Button';
-import TextField from '../../themes/default/TextField';
+import Theme from '../../themes';
 
 const messages = defineMessages({
   passwordText: {
@@ -84,12 +83,12 @@ export default class Signup extends Component {
   render() {
     return (
       <form onSubmit={ ::this.handleRegister }>
-        <TextField type="text" name="username" value={ this.state.username } placeholder="username" onChange={ ::this.handleChangeRegisterFields } />
+        <Theme render="TextField" type="text" name="username" value={ this.state.username } placeholder="username" onChange={ ::this.handleChangeRegisterFields } />
         <br />
-        <TextField type="password" name="password" value={ this.state.password } placeholder="password" onChange={ ::this.handleChangeRegisterFields } />
+        <Theme render="TextField" type="password" name="password" value={ this.state.password } placeholder="password" onChange={ ::this.handleChangeRegisterFields } />
         <br />
-        <TextField type="text" name="email" value={ this.state.email } placeholder="email" onChange={ ::this.handleChangeRegisterFields } />
-        <Button type="submit" onClick={ ::this.handleRegister }><FormattedMessage { ...messages.signupButton } /></Button>
+        <Theme render="TextField" type="text" name="email" value={ this.state.email } placeholder="email" onChange={ ::this.handleChangeRegisterFields } />
+        <Theme render="Button" type="submit" onClick={ ::this.handleRegister }><FormattedMessage { ...messages.signupButton } /></Theme>
       </form>
     );
   }

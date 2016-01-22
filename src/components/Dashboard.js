@@ -5,9 +5,7 @@ import { Link } from 'react-router';
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 
-import TextField from '../themes/default/TextField';
-import Button from '../themes/default/Button';
-
+import Theme from '../themes';
 Promise.promisifyAll(fetch);
 
 const messages = defineMessages({
@@ -112,35 +110,36 @@ export default class Dashboard extends Component {
       <div>
         Edit user:
         <form onSubmit={ this.handleSubmitUserUpdate }>
-          <TextField type="text"
+          <Theme render="TextField" type="text"
                  name="name"
                  placeholder={ this.state.user.name }
                  value={ this.state.user.name }
                  onChange={ this.handleChangeUser } />
-          <TextField type="text"
+          <Theme render="TextField" type="text"
                  name="email"
                  placeholder={ this.state.user.email }
                  value={ this.state.user.email }
                  onChange={ this.handleChangeUser } />
-          <Button type="button"
+          <Theme render="Button" type="button"
                  onClick={ this.handleSubmitUserUpdate }>
             <FormattedMessage { ...messages.updateUserButton } />
-          </Button>
+          </Theme>
         </form>
         Create room:
         <form onSubmit={ this.handleSubmitCreateRoom }>
-          <TextField type="text"
+          <Theme render="TextField" type="text"
                  name="name"
                  placeholder={ this.state.room.name }
                  value={ this.state.room.name }
                  onChange={ this.handleChangeRoom } />
-          <Button type="button"
+          <Theme render="Button" type="button"
                  onClick={ this.handleSubmitCreateRoom }>
             <FormattedMessage { ...messages.createRoomButton } />
-          </Button>
+          </Theme>
         </form>
         <ul>
-        { typeof this.state.lists.rooms.map === 'function' ?
+        {
+          typeof this.state.lists.rooms.map === 'function' ?
           this.state.lists.rooms.map( (room, index) => {
             return <li key={ `lists.room.${ index }` }><Link to={ '/rooms/' + room.id }>{ room.name }</Link></li>;
           }) : ''

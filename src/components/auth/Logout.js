@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { getCookie, deleteCookie } from '../../helpers/cookieTools';
 import { cleanRoomsList } from '../../actions/roomsActions';
 import config from '../../config';
-import { Button } from '../../themes';
+import Theme from '../../themes';
 
 const messages = defineMessages({
   logoutButton: {
@@ -37,7 +37,7 @@ class Logout extends Component {
   render() {
     return (
       <StyleRoot>
-        <Button type="submit" onClick={ ::this.handleLogout } ><FormattedMessage { ...messages.logoutButton } /></Button>
+        <Theme render="Button" type="submit" onClick={ ::this.handleLogout } ><FormattedMessage { ...messages.logoutButton } /></Theme>
       </StyleRoot>
     );
   }

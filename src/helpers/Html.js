@@ -14,7 +14,8 @@ if (!__DEVELOPMENT__) {
     }
   }
 } else {
-  scripts.push('/bundle.js');
+  const webpackConfig = require('../../webpack/dev.config');
+  scripts.push(webpackConfig.output.publicPath + 'bundle.js');
 }
 // import DocumentMeta from 'react-document-meta';
 

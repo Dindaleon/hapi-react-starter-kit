@@ -1,5 +1,15 @@
 #OpenShift Deployment Guide
 
+**IMPORTANT:** First of all, you **MUST** check and set the `host` settings in the config file `./src/config`
+You should see this:
+```
+ws: {
+      // replace with your production host
+      host: 'http://hapi-reactstarterkit.rhcloud.com', //--- Replace this with your OpenShift host address
+      port: 8000
+    }
+```
+
 1. Click on **"Add Application..."** on your Openshift console.
 
 2. On the next page, go to the bottom where it says **"Code Anything"** and paste the following URL

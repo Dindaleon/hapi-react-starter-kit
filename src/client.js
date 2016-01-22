@@ -26,7 +26,8 @@ import './globals';
 // Define constants
 const client = new ApiClient();
 const initialState = window.__INITIAL_STATE__;
-const store = configureStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), createHistory, client, initialState);
+const activeExtensions = initialState.extensions.enabled;
+const store = configureStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), activeExtensions, createHistory, client, initialState);
 const root = document.getElementById('root');
 
 if ( __DEVELOPMENT__ ) {

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import radium, { StyleRoot } from 'radium';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Tab } from '../themes';
+import Theme from '../themes';
 
 const messages = defineMessages({
   menuIndexButton: {
@@ -58,7 +58,7 @@ class Menu extends Component {
     }
     return (
       <StyleRoot>
-        <Tab items={ items } pushState={ pushState } router={ router } />
+        <Theme render="Tab" items={ items } pushState={ pushState } router={ router } />
       </StyleRoot>
     );
   }

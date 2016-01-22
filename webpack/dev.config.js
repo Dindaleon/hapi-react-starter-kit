@@ -1,6 +1,5 @@
 const webpack = require( 'webpack' );
-
-const config = {
+module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
@@ -12,16 +11,14 @@ const config = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+   // new webpack.IgnorePlugin(/\.json$/),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify( 'development' ),
       '__SERVER__': false,
-      '__CLIENT__': true,
-     /* 'PROTOCOL': true,
-      'SERVER_HOST': JSON.stringify('localhost'),
-      'WS_PORT': 8801*/
+      '__CLIENT__': true
     }),
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
@@ -34,7 +31,7 @@ const config = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          cacheDirectory: true,
+          // cacheDirectory: false,
           presets: [ 'es2015', 'react', 'stage-0' ],
           plugins: [
             [ 'transform-decorators-legacy' ],
@@ -51,12 +48,12 @@ const config = {
             }]
           ]
         }
-      }, {
+      },
+      {
         test: /\.json?$/,
         loader: 'json'
       }
     ]
-  }
+  },
 };
 
-export default config;

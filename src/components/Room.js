@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleRoot } from 'radium';
 import {
   defineMessages,
   FormattedMessage,
   FormattedRelative,
   injectIntl, intlShape
 } from 'react-intl';
-import TextField from '../themes/default/TextField';
-import Button from '../themes/default/Button';
+import Theme from '../themes';
 
 const messages = defineMessages({
   rooms: {
@@ -168,8 +166,8 @@ class Room extends Component {
         }
         </ul>
         <form onSubmit={ this.handleSubmit }>
-          <TextField type="text" value={ this.state.message } onChange={ this.handleChange } placeholder={ formatMessage(messages.sendMessageInput) } />
-          <Button onClick={ this.handleSubmit } ><FormattedMessage { ...messages.sendMessageButton } /></Button>
+          <Theme render="TextField" type="text" value={ this.state.message } onChange={ this.handleChange } placeholder={ formatMessage(messages.sendMessageInput) } />
+          <Theme render="Button" onClick={ this.handleSubmit } ><FormattedMessage { ...messages.sendMessageButton } /></Theme>
         </form>
         <div>{ this.state.userTyping ? <FormattedMessage {...messages.userIsTyping} values={ { name: this.state.userTyping } } /> : '' }</div>
       </div>

@@ -4,7 +4,7 @@ import logger from '../middleware/logger';
 import promiseSimple from '../middleware/promiseSimple';
 import transitionMiddleware from '../middleware/transitionMiddleware';
 
-export default function configureStore(reduxReactRouter, getRoutes, createHistory, client, initialState) {
+const configureStore = (reduxReactRouter, getRoutes, activeReducers, createHistory, client, initialState) => {
   let finalCreateStore;
   const middleware = [
     promiseSimple(client),
@@ -24,7 +24,7 @@ export default function configureStore(reduxReactRouter, getRoutes, createHistor
   })(finalCreateStore);
 
   const store = finalCreateStore(
-    reducers,
+    reducers(activeReducers),
     initialState
   );
 
@@ -36,4 +36,6 @@ export default function configureStore(reduxReactRouter, getRoutes, createHistor
   }
 
   return store;
-}
+};
+
+export default configureStore;

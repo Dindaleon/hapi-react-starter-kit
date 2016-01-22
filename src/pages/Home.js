@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import CounterContainer from '../containers/CounterApp';
+import RenderExtension from '../extensions';
 
 export default class Home extends React.Component {
   constructor( props ) {
@@ -12,7 +13,7 @@ export default class Home extends React.Component {
 
   render() {
     const me = 'happy';
-    const you = 'sad';
+    const you = 'happier';
     return (
 			<div>
         <Helmet title="Home" />
@@ -24,6 +25,8 @@ export default class Home extends React.Component {
           <span>So we are </span><span>{ me === 'happy' ? 'good' : 'Bad!' }</span>
         </div>
         <CounterContainer />
+        <RenderExtension name={ 'myCounterExample' } />
+        <RenderExtension name={ 'counterExtension' } />
 			</div>
 		);
   }

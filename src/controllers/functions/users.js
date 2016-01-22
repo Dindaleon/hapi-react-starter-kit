@@ -264,7 +264,7 @@ const users = {
             .srem(key + ':unique:emails', _user.email)
             .del(key + ':data:' + id)
             .execAsync()
-            .then( deleted => {
+            .then( () => {
               return callback(true);
             });
         });
@@ -284,10 +284,8 @@ const users = {
     limit = limit + offset;
    // if ( idsArray === null ) {
     client.zrangeAsync(key + ':list:ids', offset, limit)
-    .then( ids => {
-      if ( idsArray !== null ) {
-        ids = idsArray;
-      }
+    .then( _ids => {
+      const ids = idsArray !== null ? idsArray : _ids;
       Promise.map( ids, id => {
         return client.hgetallAsync(key + ':data:' + id)
         .then( user => {
@@ -332,7 +330,7 @@ const users = {
     const login = user.username || user.email;
     let hash = null;
     const multi = client.multi();
-    multi
+    return multi
       .sismember(key + ':unique:usernames', user.username)
       .sismember(key + ':unique:emails', user.email)
       .execAsync()
@@ -344,13 +342,13 @@ const users = {
         } else {
           return callback(null); // this should never happen
         }
-        client.hgetAsync(key + ':' + hash, login)
+        return client.hgetAsync(key + ':' + hash, login)
         .then( id => {
-          client.hgetallAsync(key + ':data:' + id)
+          return client.hgetallAsync(key + ':data:' + id)
           .then( _user => {
             const sealed = _user.password;
             user.email = _user.email;
-            Iron.unsealAsync(
+            return Iron.unsealAsync(
               sealed,
               config.iron.secret,
               Iron.defaults
@@ -375,20 +373,20 @@ const users = {
                   revoked: false
                 };
                 // Generate a random SECRET KEY
-                encrypt(JSON.stringify(user.session.refreshToken), null, encrypted => {
+                return encrypt(JSON.stringify(user.session.refreshToken), null, encrypted => {
                   user.session.refreshToken = JWT.sign(encrypted.data, config.server.auth.secret);
                   user.session.secret = encrypted.key;
                   user.session.iv = encrypted.iv;
                   user.session.guid = guid;
                   const multi = client.multi();
                   // Insert session in database
-                  multi
+                  return multi
                   .hmset(key + ':data:' + id + ':sessions:' + user.session.id, user.session)
                   .zadd(key + ':data:' + id + ':sessions:ids', time, user.session.id)
                   .hset(key + ':sessions', user.session.id, id)
                   .execAsync()
-                  .then( result => {
-                    Iron.sealAsync(
+                  .then( () => {
+                    return Iron.sealAsync(
                       {
                         sessionId: user.session.id,
                         accessToken: user.session.accessToken,
@@ -415,9 +413,9 @@ const users = {
                     console.error('error: ', e.stack);
                   });
                 });
-              } else {
-                return callback(null);
               }
+              console.error('error: login was unsuccessful.');
+              return callback(null);
             }).catch( e => {
               console.error('error: ', e.stack);
             });
@@ -447,23 +445,22 @@ const users = {
     if (user.session.id === null) {
       return callback(null);
     }
-    client.hgetAsync(key + ':sessions', user.session.id)
+    return client.hgetAsync(key + ':sessions', user.session.id)
     .then( userId => {
       user.id = userId;
-      client.sismemberAsync(key + ':unique:ids', user.id)
+      return client.sismemberAsync(key + ':unique:ids', user.id)
       .then( exists => {
         if ( exists ) {
           const multi = client.multi();
-          multi
+          return multi
             .del(key + ':data:' + user.id + ':sessions:' + user.session.id)
             .zrem(key + ':data:' + user.id + ':sessions:ids', user.session.id)
             .execAsync()
             .then( res => {
               return callback(res[0]);
             });
-        } else {
-          return callback(false);
         }
+        return callback(false);
       }).catch( e => {
         console.error('error: ', e.stack);
         return callback(false);
@@ -535,11 +532,11 @@ const users = {
       }
     };
 
-    client
+    return client
     .hgetAsync(key + ':sessions', user.session.id)
     .then( userId => {
       user.id = userId;
-      client
+      return client
       .hgetallAsync(key + ':data:' + user.id + ':sessions:' + user.session.id)
       .then( _session => {
         if ( _session !== null ) {
@@ -553,14 +550,14 @@ const users = {
             return callback(false);
           }
           // Check refresh token
-          JWT.verifyAsync(user.session.refreshToken, config.server.auth.secret)
+          return JWT.verifyAsync(user.session.refreshToken, config.server.auth.secret)
           .then( decoded => {
             const encryptedObject = {
               key: user.session.secret,
               iv: user.session.iv,
               data: decoded
             };
-            decrypt(encryptedObject, null, data => {
+            return decrypt(encryptedObject, null, data => {
               try {
                 JSON.parse(data);
               } catch (e) {
@@ -576,7 +573,7 @@ const users = {
               // Check all data
               // If checks pass, issue new access token
               // get username from id
-              client.hgetallAsync(key + ':data:' + user.id)
+              return client.hgetallAsync(key + ':data:' + user.id)
               .then( _user => {
                 if (
                   user.id.toString() === decryptedToken.userId.toString() &&
@@ -600,38 +597,40 @@ const users = {
                   // All checks passed
                   // Save access token in case we want to
                   // show it to the user.
-                  client.hsetAsync(key + ':data:' + user.id + ':sessions:' + user.session.id,
+                  return client.hsetAsync(key + ':data:' + user.id + ':sessions:' + user.session.id,
                     'accessToken',
                     user.session.accessToken
-                  );
-                  response = {
-                    id: user.id,
-                    username: user.username,
-                    email: user.email,
-                    locale: _user.locale,
-                    sessionId: user.session.id,
-                    accessToken: user.session.accessToken
-                  };
-                } else {
-                  // console.log('ALL CHECKS FAILED')
-                  // All checks failed.
-                  response = false;
+                  )
+                  .then( () => {
+                    response = {
+                      id: user.id,
+                      username: user.username,
+                      email: user.email,
+                      locale: _user.locale,
+                      sessionId: user.session.id,
+                      accessToken: user.session.accessToken
+                    };
+                    return callback(response);
+                  }).catch( e => {
+                    console.error('error: ', e.stack);
+                    return callback(false);
+                  });
                 }
-
-                return callback(response);
+                // console.log('ALL CHECKS FAILED')
+                // All checks failed.
+                return callback(false);
               }).catch( e => {
-                console.log('error: ', e.stack);
+                console.error('error: ', e.stack);
               });
             });
           }).catch( e => {
-            console.log('error: ', e.stack);
+            console.error('error: ', e.stack);
             // console.log('JWT Verification Failed.')
             // JWT Verification failed.
             return callback(false);
           });
-        } else {
-          return callback(false);
         }
+        return callback(false);
       }).catch( e => {
         console.error('error: ', e.stack);
 

@@ -14,7 +14,7 @@ const initialState = {
   }
 };
 
-export default function rooms(state = initialState, action = {}) {
+const rooms = (state = initialState, action = {}) => {
   switch (action.type) {
     case CLEAN_ROOMS_LIST: {
       return {
@@ -38,17 +38,6 @@ export default function rooms(state = initialState, action = {}) {
         ...state,
         creating: false,
         created: true,
-        /*data: {
-          lists: Object.assign(
-            state.data.lists,
-            {
-              [action.result.data.id]: {
-                id: action.result.data.id,
-                name: action.result.data.name
-              }
-            }
-          )
-        }*/
       };
     }
     case CREATE_ROOM_FAILURE: {
@@ -72,8 +61,8 @@ export default function rooms(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: Object.assign(state.data, {
-          rooms: Object.assign(initialState.data.rooms,
+        data: Object.assign({}, state.data, {
+          rooms: Object.assign({}, initialState.data.rooms,
             {
               [action.result.data.id]: {
                 messages: action.result.data.messages
@@ -146,3 +135,5 @@ export default function rooms(state = initialState, action = {}) {
     }
   }
 }
+
+export default rooms;

@@ -1,3 +1,4 @@
+import config from './config';
 // Prevent issues with libraries using this var (see http://tinyurl.com/pcockwk)
 delete process.env.BROWSER;
 
@@ -19,8 +20,8 @@ let defaultRedisDbNumber = 1;
 if ( __PRODUCTION__ ) {
   defaultServerHOST = 'localhost';
   defaultServerPORT = 8080;
-  defaultWsHost = 'http://hapi-reactstarterkit.rhcloud.com';
-  defaultWsPort = 8000;
+  defaultWsHost = config.server.ws.host;
+  defaultWsPort = config.server.ws.port;
   defaultRedisHost = 'localhost';
   defaultRedisPort = 6379;
   defaultRedisDbNumber = 1;

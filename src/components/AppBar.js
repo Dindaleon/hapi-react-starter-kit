@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { AppBar } from '../themes';
+import Theme from '../themes';
 
 class Bar extends Component {
   state = {}
 
   render() {
     return (
-        <AppBar { ...this.props } />
+        <Theme render="AppBar" { ...this.props } />
     );
   }
 }
