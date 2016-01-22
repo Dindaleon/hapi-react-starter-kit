@@ -7,13 +7,17 @@ class TextField extends Component {
     selectedElement: null,
     itemWidth: 0,
     offsetLeft: 0
-  }
+  };
 
   componentWillMount() {
     const currentRoute = this.props.router.location.pathname;
     this.setState({ selectedRoute: currentRoute });
+<<<<<<< HEAD
+  };
+=======
     // this._componentUpdateOnChange(currentRoute);
   }
+>>>>>>> refs/remotes/origin/master
 
   componentWillReceiveProps = () => {
     const currentRoute = this.props.router.location.pathname;
@@ -53,8 +57,26 @@ class TextField extends Component {
     }
     this.setState({ itemWidth: itemWidth });
     this.setState({ offsetLeft: offsetLeft });
-  }
+  };
 
+<<<<<<< HEAD
+  componentDidUpdate = (prevProps, prevState) => {
+    const currentRoute = this.props.router.location.pathname;
+    const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
+    let itemWidth = 0;
+    let offsetLeft = 0;
+    if ( currentItem !== null ) {
+      itemWidth = currentItem.offsetWidth;
+      offsetLeft = currentItem.offsetLeft;
+    }
+    if (prevState.itemWidth !== itemWidth) {
+      this.setState({ itemWidth: itemWidth });
+      this.setState({ offsetLeft: offsetLeft });
+    }
+  };
+
+=======
+>>>>>>> refs/remotes/origin/master
   styles = {
     base: {
       fontFamily: 'Roboto, Helvetica, Arial, sans-serif!important',
@@ -87,7 +109,7 @@ class TextField extends Component {
     selectedItem: {
       color: '#fff'
     }
-  }
+  };
 
   getItemStyle = () => {
     const item = {
@@ -103,7 +125,7 @@ class TextField extends Component {
       textDecoration: 'none'
     };
     return item;
-  }
+  };
 
   getBottomBorder = () => {
     const offsetLeft = this.state.offsetLeft;
@@ -119,13 +141,14 @@ class TextField extends Component {
       backgroundColor: '#D50000'
     };
     return bottomBorder;
-  }
+  };
 
   handleClick = event => {
     event.preventDefault();
     this.setState({ selectedRoute: event.target.getAttribute('data-to') });
     this.props.pushState(null, event.target.getAttribute('data-to'));
-  }
+  };
+
   render() {
     return (
       <div style={ this.styles.base }>

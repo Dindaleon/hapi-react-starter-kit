@@ -75,7 +75,7 @@ class AppBar extends Component {
 
   handleOnClick = event => {
     // TODO
-  }
+  };
 
   render() {
     return (

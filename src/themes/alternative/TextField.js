@@ -52,12 +52,13 @@ const styles = {
 };
 
 class TextField extends Component {
-  state = { hasValue: '' }
+  state = { hasValue: '' };
 
   _handleInputChange = (e) => {
     this.setState({ hasValue: e.target.value });
     if (this.props.onChange) this.props.onChange(e);
-  }
+  };
+    
   render() {
     return (
       <input
