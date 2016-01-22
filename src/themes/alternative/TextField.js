@@ -58,7 +58,7 @@ class TextField extends Component {
     this.setState({ hasValue: e.target.value });
     if (this.props.onChange) this.props.onChange(e);
   };
-    
+
   render() {
     return (
       <input
