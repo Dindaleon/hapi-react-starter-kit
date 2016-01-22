@@ -52,12 +52,12 @@ const styles = {
 };
 
 class TextField extends Component {
-    state = { inputValue: '' };
+  state = { inputValue: '' };
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value === '') {
       this.setState({ inputValue: '' });
-    };
+    }
   };
 
   _handleInputChange = event => {
