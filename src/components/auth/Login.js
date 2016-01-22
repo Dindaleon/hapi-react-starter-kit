@@ -22,14 +22,13 @@ export default class Login extends Component {
     loggedIn: false
   };
 
-
-  handleChangeLoginFields(event) {
+  handleChangeLoginFields = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
 
-  handleLogin = event => {
+  handleLogin = (event) => {
     event.preventDefault();
 
     const { login, loadLocale, pushState } = this.props;
@@ -64,11 +63,11 @@ export default class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={ ::this.handleLogin }>
-        <Theme render="TextField" type="text" name="username" value={ this.state.username } placeholder="username" onChange={ ::this.handleChangeLoginFields } />
+      <form onSubmit={ this.handleLogin }>
+        <Theme render="TextField" type="text" name="username" value={ this.state.username } placeholder="username" onChange={ this.handleChangeLoginFields } />
         <br />
-        <Theme render="TextField" type="password" name="password" value={ this.state.password } placeholder="password" onChange={ ::this.handleChangeLoginFields } />
-        <Theme render="Button" color="accent" onClick={ ::this.handleLogin }>
+        <Theme render="TextField" type="password" name="password" value={ this.state.password } placeholder="password" onChange={ this.handleChangeLoginFields } />
+        <Theme render="Button" color="accent" onClick={ this.handleLogin }>
           <FormattedMessage { ...messages.loginButton } />
         </Theme>
       </form>
