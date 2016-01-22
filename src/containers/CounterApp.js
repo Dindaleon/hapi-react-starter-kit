@@ -8,10 +8,10 @@ const mapStateToProps = ( state ) => {
     counter: state.counter,
     routerState: state.router
   };
-}
+};
 
 const mapDispatchToProps = ( dispatch ) => {
   return bindActionCreators( CounterActions, dispatch );
-}
+};
 
 export default connect( mapStateToProps, mapDispatchToProps )( Counter );

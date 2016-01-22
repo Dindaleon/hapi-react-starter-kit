@@ -18,7 +18,7 @@ export default class Locale extends Component {
         this.props.loadLocale(user.locale);
       });
     }
-  }
+  };
   render() {
     return (
       <div id="switchLocale">

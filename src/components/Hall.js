@@ -19,7 +19,7 @@ export default class Hall extends Component {
     lists: {
       rooms: this.props.rooms.data.lists || []
     }
-  }
+  };
 
   componentDidMount() {
     this.props.list().then( action => {

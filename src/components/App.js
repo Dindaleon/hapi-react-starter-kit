@@ -32,7 +32,7 @@ const fetchData = (getState, dispatch) => {
 class App extends Component {
   state = {
     watchId: 0
-  }
+  };
 
   componentDidMount() {
     // Locale Control
@@ -65,11 +65,11 @@ class App extends Component {
     };
     this.props.setCoordinates(coordinates);
     this.setState({ watchId: this.watchId });
-  }
+  };
 
   geoError = () => {
     console.log('Sorry, geolocation is not available.');
-  }
+  };
 
   render() {
     const { userAgent } = this.props;

@@ -47,7 +47,7 @@ class Room extends Component {
     messages: [],
     isTyping: false,
     userTyping: null
-  }
+  };
 
   componentWillMount() {
     this.setState({ roomId: this.props.roomId });
@@ -86,7 +86,7 @@ class Room extends Component {
     const messages = this.state.messages;
     messages.push(data);
     this.setState({ messages });
-  }
+  };
 
   onUserTyping = data => {
     if ( this.state.userTyping !== data.username ) {
@@ -95,7 +95,7 @@ class Room extends Component {
         this.setState({ userTyping: null });
       }, 5000);
     }
-  }
+  };
 
   handleSubmit = event => {
     const { user } = this.props;
@@ -122,7 +122,7 @@ class Room extends Component {
       time: new Date().getTime()
     });
     this.setState({ userTyping: null });
-  }
+  };
 
   handleChange = event => {
     this.setState({ message: event.target.value });
@@ -138,7 +138,7 @@ class Room extends Component {
         this.setState({ isTyping: false });
       }, 5000);
     }
-  }
+  };
 
   render() {
     const { formatMessage } = this.props.intl;

@@ -19,7 +19,7 @@ class RenderExtension extends Component {
       }
     }
     return isActive;
-  }
+  };
   render() {
     const customRequire = extensionName => {
       let component = EmptyComponent;

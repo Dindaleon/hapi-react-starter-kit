@@ -36,7 +36,7 @@ export default class Signup extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-  }
+  };
 
   handleRegister = event => {
     event.preventDefault();
@@ -78,7 +78,7 @@ export default class Signup extends Component {
         console.error('There was a problem logging in.');
       }
     });
-  }
+  };
 
   render() {
     return (
