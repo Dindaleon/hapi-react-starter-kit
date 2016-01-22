@@ -4,7 +4,8 @@ class SwitchTheme extends Component {
   handleLocaleOnChange = event => {
     event.preventDefault();
     this.props.switchTheme(event.target.value);
-  }
+  };
+
   render() {
     return (
       <div id="switchTheme">
