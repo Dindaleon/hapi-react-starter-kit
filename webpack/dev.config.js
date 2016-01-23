@@ -3,6 +3,9 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
+    // 'webpack-dev-server/client?http://localhost:3000',
+    // 'webpack/hot/only-dev-server',
+    // 'webpack/hot/signal',
     './src/client.js'
   ],
   output: {
@@ -32,10 +35,10 @@ module.exports = {
         loader: 'babel',
         query: {
           // cacheDirectory: false,
-          presets: [ 'es2015', 'react', 'stage-0' ],
+          // presets: [ 'es2015', 'react', 'stage-0' ],
           plugins: [
-            [ 'transform-decorators-legacy' ],
-            [ 'transform-runtime' ],
+            // [ 'transform-decorators-legacy' ],
+            // [ 'transform-runtime' ],
             [ 'react-transform', {
               transforms: [{
                 transform: 'react-transform-hmr',
