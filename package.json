@@ -4,7 +4,7 @@
   "description": "A hapi React Starter kit with react-router, redux, react-transform",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/karma/bin/karma start ./karma.config.js",
+    "test": "babel-node node_modules/karma/bin/karma start ./karma.config.js",
     "clean": "rimraf ./static/assets rimraf ./coverage",
     "start": "node index.js",
     "start-dev": "nodemon index.js",
