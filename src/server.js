@@ -92,11 +92,11 @@ const startServer = ( callback ) => {
     // See https://github.com/webpack/webpack-dev-middleware
     publicPath: '/',
     contentBase: 'src',
-    lazy: true,
+    lazy: false,
     watchOptions: {
       // aggregateTimeout: 300,
       // poll: false,
-      // signal: true
+      signal: true
     },
     stats: {
       colors: true,

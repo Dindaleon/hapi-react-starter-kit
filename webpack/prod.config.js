@@ -43,11 +43,11 @@ module.exports = {
       test: /\.js?$/,
       exclude: /node_modules/,
       loader: 'babel',
-      query: {
+      /* query: {
         cacheDirectory: true,
         presets: [ 'es2015', 'react', 'stage-0' ],
         plugins: [ 'transform-decorators-legacy', 'transform-runtime' ]
-      }
+      } */
     }, {
       test: /\.json?$/,
       loader: 'json'

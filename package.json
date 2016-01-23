@@ -50,8 +50,8 @@
   "license": "MIT",
   "dependencies": {
     "aguid": "^1.0.3",
-    "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.3.13",
@@ -90,10 +90,17 @@
     "redis": "^2.2.5",
     "redux": "^3.0.2",
     "redux-router": "^1.0.0-beta3",
+    "rimraf": "^2.4.3",
     "serialize-javascript": "^1.1.2",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7",
-    "vision": "^4.0.1"
+    "stats-webpack-plugin": "^0.3.0",
+    "strip-loader": "^0.1.0",
+    "vision": "^4.0.1",
+    "webpack": "^1.12.2",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
@@ -129,14 +136,7 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
-    "rimraf": "^2.4.3",
-    "sinon-chai": "^2.8.0",
-    "stats-webpack-plugin": "^0.3.0",
-    "strip-loader": "^0.1.0",
-    "webpack": "^1.12.2",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.4.1"
+    "sinon-chai": "^2.8.0"
   },
   "engines": {
     "node": ">= 4.1.1",

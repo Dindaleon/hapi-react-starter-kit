@@ -43,7 +43,8 @@ export default class Login extends Component {
       return console.log('Must enter a password.');
     }
 
-    login(username, password).then( action => {
+    login(username, password)
+    .then( action => {
       if ( typeof action.result !== 'undefined' ) {
         loadLocale(action.result.data.locale);
         setCookie(
@@ -58,6 +59,7 @@ export default class Login extends Component {
         // handle error
         console.error('There was a problem logging in.');
       }
+      return 'Message Success/Failure';
     });
   };
 

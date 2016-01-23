@@ -61,10 +61,10 @@ module.exports = function(config) {
             exclude: /node_modules/,
             loader: 'babel',
             test: /\.js?$/,
-            query: {
+            /* query: {
               presets: [ 'es2015', 'react', 'stage-0' ],
               plugins: [ 'transform-decorators-legacy', 'transform-runtime' ]
-            }
+            } */
           }
         ]
       }

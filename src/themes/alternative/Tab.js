@@ -18,7 +18,7 @@ class TextField extends Component {
   componentWillReceiveProps = () => {
     const currentRoute = this.props.router.location.pathname;
     this._componentUpdateOnChange(currentRoute);
-  }
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
     const currentRoute = this.props.router.location.pathname;
@@ -33,7 +33,7 @@ class TextField extends Component {
       this.setState({ itemWidth: itemWidth });
       this.setState({ offsetLeft: offsetLeft });
     }
-  }
+  };
 
   _componentUpdateOnChange(currentRoute) {
     const currentItem = document.querySelector('[data-to="' + currentRoute + '"]');
@@ -153,8 +153,8 @@ class TextField extends Component {
         <div style={ this.getBottomBorder() } />
       </div>
     );
-  }
-}
+  };
+};
 
 TextField.propTypes = {
   children: PropTypes.any,
