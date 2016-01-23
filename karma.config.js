@@ -1,6 +1,6 @@
 /* eslint-disable */
 /* jscs: disable */
-
+var webpack = require('webpack');
 // Karma configuration
 module.exports = function(config) {
   config.set({
@@ -43,6 +43,13 @@ module.exports = function(config) {
 
     webpack: {
       devtool: 'inline-source-map',
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('production'),
+          '__SERVER__': false,
+          '__CLIENT__': true
+        })
+      ],
       module: {
         preLoaders: [ { //delays coverage til after tests are run, fixing transpiled source coverage error
             test: /\.js$/,
@@ -64,6 +71,14 @@ module.exports = function(config) {
     },
     webpackMiddleware: {
       noInfo: true,
+      stats: {
+        colors: true,
+        hash: false,
+        timings: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+      }
     },
     mochaReporter: {
       colors: {

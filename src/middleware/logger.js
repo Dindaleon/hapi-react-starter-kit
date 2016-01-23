@@ -1,7 +1,9 @@
 const logger = store => next => action => {
   const result = next(action);
 
-  if (__SERVER__) return result;
+  if (__SERVER__) {
+    return result;
+  }
 
   if (typeof( console.group ) === 'function') {
     console.group('action.type');

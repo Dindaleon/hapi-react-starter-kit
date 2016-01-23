@@ -36,7 +36,10 @@ export default class Locale extends Component {
 }
 
 Locale.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired,
   loadLocale: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
