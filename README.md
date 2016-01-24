@@ -6,6 +6,7 @@ A hapi React Starter kit with react-router, redux, react-transform
 [![Dev dependency status](https://david-dm.org/Dindaleon/hapi-react-starter-kit/dev-status.svg)](https://david-dm.org/Dindaleon/hapi-react-starter-kit#info=devDependencies "Dev dependency status")
 [![Coverage Status](https://coveralls.io/repos/Dindaleon/hapi-react-starter-kit/badge.svg?branch=master&service=github)](https://coveralls.io/github/Dindaleon/hapi-react-starter-kit?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/16a9c5ea08814e8ebdf1cc64f680b1f3)](https://www.codacy.com/app/Dindaleon/hapi-react-starter-kit)
+[![demo on OpenShift](https://img.shields.io/badge/demo-OpenShift%20--%20online-brightgreen.svg)](http://hapi-reactstarterkit.rhcloud.com)
 [![npm](https://img.shields.io/npm/v/hapi-react-starter-kit.svg?style=flat-square)](https://www.npmjs.com/package/hapi-react-starter-kit)
 [![NPM](https://nodei.co/npm/hapi-react-starter-kit.png?compact=true)](https://npmjs.org/package/hapi-react-starter-kit)
 

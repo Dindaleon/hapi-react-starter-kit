@@ -32,7 +32,7 @@ class Logout extends Component {
       // Clean reducers
       dispatch(cleanRoomsList);
       pushState(null, '/');
-      return 'Logout Message.'
+      return 'Logout Message.';
     });
   };
   render() {
