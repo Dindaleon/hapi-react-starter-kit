@@ -1,7 +1,6 @@
 /* eslint-disable no-var, vars-on-top, no-console */
 
 // Register babel to have ES6 support on the server
-require( 'babel-polyfill' );
 require( 'babel-core/register' )({
   ignore: /node_modules/,
   presets: [ 'es2015', 'stage-0', 'react' ],
