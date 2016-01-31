@@ -29,6 +29,7 @@ export default class Locale extends Component {
           <select value={ this.props.user.locale } onChange={ this.handleLocaleOnChange }>
             <option value="es">Spanish</option>
             <option value="en">English</option>
+            <option value="it">Italian</option>
           </select>
       </div>
     );

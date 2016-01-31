@@ -4,10 +4,9 @@ import { routerStateReducer } from 'redux-router';
 import counter from './counter';
 import user from './userReducer';
 import rooms from './roomsReducer';
-import i18l from './localeReducer';
 import extensions from './extensionsReducers';
 
-export default function(activeReducers) {
+export default activeReducers => {
   const extendedReducers = {};
   const pathToExtensionsFolder = '../extensions';
   let customRequire = () => 'undefined';
@@ -26,11 +25,11 @@ export default function(activeReducers) {
     };
   }
 
-
   for (const activeReducer of activeReducers) {
     extendedReducers[activeReducer.name] = customRequire(activeReducer.reducerName).default;
   }
 
+  const i18l = require('./localeReducer').extended(activeReducers);
   const rootReducer = combineReducers({
     ...extendedReducers,
     counter,
@@ -42,4 +41,4 @@ export default function(activeReducers) {
   });
 
   return rootReducer;
-}
+};

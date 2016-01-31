@@ -23,7 +23,6 @@ import { Provider } from 'react-redux';
 
 // Import Intl
 import { IntlProvider } from 'react-intl';
-import * as lang from './lang';
 
 // Configure Redux Store
 import configureStore from './store/configureStore';
@@ -39,7 +38,7 @@ import qs from 'query-string';
 import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import getActiveExtensions from './helpers/getActiveReducers';
-
+import makeRouteHooksSafe from './helpers/makeRouteHooksSafe';
 // Import config file
 import config from './config';
 
@@ -186,12 +185,18 @@ const startServer = ( callback ) => {
       });
 
       server.ext( 'onPreResponse', ( request, reply ) => {
-        getActiveExtensions().then( activeReducers => {
+        getActiveExtensions().then( activeExtensions => {
           if ( typeof request.response.statusCode !== 'undefined' ) {
             return reply.continue();
           }
           const client = new ApiClient(request);
-          const store = configureStore(reduxReactRouter, getRoutes, activeReducers, createHistory, client);
+          const store = configureStore(
+            reduxReactRouter,
+            makeRouteHooksSafe(getRoutes, activeExtensions),
+            activeExtensions,
+            createHistory,
+            client
+          );
 
           const output = (
             renderToString( <Html store={ store } /> )
@@ -211,7 +216,9 @@ const startServer = ( callback ) => {
                 routerState.location.query = qs.parse(routerState.location.search);
               }
               const promises = [];
-              promises.push(store.dispatch(setActiveReducers(activeReducers)));
+              let lang = require('./lang');
+              lang = lang.extended(activeExtensions);
+              promises.push(store.dispatch(setActiveReducers(activeExtensions)));
               Promise.all(promises).then(() => {
                 store.dispatch(
                   setUserAgent(request.headers['user-agent']),

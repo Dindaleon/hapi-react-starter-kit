@@ -1,4 +1,6 @@
 const webpack = require( 'webpack' );
+// const ExtensionInstaller = require('./ExtensionInstaller');
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -25,7 +27,8 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    })
+    }),
+    // new ExtensionInstaller({ options: 'files' })
   ],
   module: {
     loaders: [

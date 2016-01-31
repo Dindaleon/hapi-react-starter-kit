@@ -38,7 +38,11 @@ const config = {
       // Pick a strong algorithm
       algorithms: 'HS256'
     },
+    // Change these to fit your needs.
     protocol: 'http://',
+    developmentUrl: 'http://localhost:3000',
+    productionUrl: 'http://localhost:8080',
+    // productionUrl: 'http://hapi-reactstarterkit.rhcloud.com',
     // Websockets server
     ws: {
       // replace with your production host

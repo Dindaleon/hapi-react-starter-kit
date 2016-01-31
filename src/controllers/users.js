@@ -166,6 +166,7 @@ const userController = [
   },
   /**
    *  Route for deleting a user
+   * TODO: add scopes
    */
   {
     method: 'DELETE',

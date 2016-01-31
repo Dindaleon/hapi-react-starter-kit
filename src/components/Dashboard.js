@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
       name: ''
     },
     lists: {
-      rooms: this.props.rooms.data.lists || []
+      rooms: []
     }
   };
 
@@ -70,9 +70,10 @@ export default class Dashboard extends Component {
       id: this.state.user.id,
       accessToken: user.accessToken
     };
-
+    const roomName = this.state.room.name;
+    this.setState({ room: { name: '' }});
     const _room = {
-      name: this.state.room.name
+      name: roomName
     };
 
     this.props.createRoom( _user, _room ).then( action => {
@@ -142,7 +143,7 @@ export default class Dashboard extends Component {
         {
           typeof this.state.lists.rooms.map === 'function' ?
           this.state.lists.rooms.map( (room, index) => {
-            return <li key={ `lists.room.${ index }` }><Link to={ '/rooms/' + room.id }>{ room.name }</Link></li>;
+            return <li key={ `lists.room.${ index }` }><Link to={ '/room/' + room.id }>{ room.name }</Link></li>;
           }) : ''
         }
         </ul>

@@ -119,15 +119,6 @@ const chatRoomController = [
       }
     }
   },
- /* {
-    method: 'GET',
-    path: 'rooms',
-    config: {
-      tags: [ 'api', 'rooms' ],
-      description: ''
-    }
-  },*/
-  // ...
   /*
    * Read messages from redis
    */
@@ -166,4 +157,4 @@ const chatRoomController = [
   }
 ];
 
-export { chatRoomController as default } ;
+export { chatRoomController as default };

@@ -15,6 +15,7 @@
     "PROTOCOL": true,
     "SERVER_HOST": true,
     "SERVER_PORT": true,
+    "SERVER_URI": true,
     "WS_HOST": true,
     "WS_PORT": true,
     "REDIS_HOST": true,

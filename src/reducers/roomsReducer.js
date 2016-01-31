@@ -62,6 +62,7 @@ const rooms = (state = initialState, action = {}) => {
         loading: false,
         loaded: true,
         data: Object.assign({}, state.data, {
+          // here should be state instead of initialState
           rooms: Object.assign({}, initialState.data.rooms,
             {
               [action.result.data.id]: {
@@ -134,6 +135,6 @@ const rooms = (state = initialState, action = {}) => {
       return state;
     }
   }
-}
+};
 
 export default rooms;

@@ -2,6 +2,20 @@
 import { validateUser } from './controllers/functions/users';
 import routes from './controllers';
 import config from './config';
+import { getActiveExtensionsSync } from './helpers/getActiveReducers';
+
+let extendedApiRoutes = {};
+const activeExtensions = getActiveExtensionsSync();
+for ( const extensionFolderName of activeExtensions) {
+  let extensionController = null;
+  try {
+    extensionController = require('./extensions/' + extensionFolderName + '/controllers/index').default;
+    extendedApiRoutes[extensionFolderName] = extensionController;
+  } catch (e) {
+    // console.log('This extension (' + extensionFolderName + ') does not have controllers.');
+  }
+}
+extendedApiRoutes = Object.assign({}, routes, extendedApiRoutes);
 
 const register = ( server, options, next ) => {
   // Set Auth Strategy
@@ -18,9 +32,9 @@ const register = ( server, options, next ) => {
   );
   // server.auth.default(config.server.auth.strategy);
 
-  for (const key in routes) {
-    if (routes.hasOwnProperty( key )) {
-      server.select('api').route(routes[key]);
+  for (const key in extendedApiRoutes) {
+    if (extendedApiRoutes.hasOwnProperty( key )) {
+      server.select('api').route(extendedApiRoutes[key]);
     }
   }
   next();

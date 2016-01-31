@@ -1,25 +1,26 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-
 // App Container
 import App from './containers/AppContainer';
 
-// Pages
+// Core Pages
 import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Hall from './pages/Hall';
 import Index from './pages/Index';
 import RegisterPage from './pages/Register';
-import Rooms from './pages/Room';
+import Room from './pages/Room';
 import LoginPage from './pages/Login';
+
+// This will append extensions pages/routes to the default ones.
+import loadExtensionsPages from './helpers/loadExtensionsPages';
 
 // Actions
 import { load, isAuthLoaded } from './actions/userActions';
 import { loadLocale, isLocaleLoaded } from './actions/localeActions';
 
-export default ( store ) => {
+export default ( store, activeExtensions ) => {
   const checkSession = () => {
     const { user: { data: { sessionId }}} = store.getState();
+
     let isLoggedIn = false;
     if (sessionId !== 0 && typeof sessionId !== 'undefined' ) {
       isLoggedIn = true;
@@ -35,7 +36,6 @@ export default ( store ) => {
         accessToken = localStorage.accessToken;
       }
       store.dispatch(load({ data: accessToken })).then(() => {
-        // checkAuth();
         cb(checkSession());
         if (!isLocaleLoaded(store.getState())) {
           // Load locale for logged in user
@@ -65,19 +65,28 @@ export default ( store ) => {
     });
   };
 
-  return (
-    <Route path="/" component={ App }>
-      <IndexRoute component={ Index }/>
-      <Route path="home" component={ Home } />
-      <Route onEnter={ redirectToDashboard }>
-        <Route path="login" component={ LoginPage } />
-        <Route path="register" component={ RegisterPage } />
-      </Route>
-      <Route onEnter={ redirectToLogin }>
-        <Route path="dashboard" component={ Dashboard } />
-        <Route path="hall" component={ Hall } />
-        <Route path="rooms/:id" component={ Rooms } />
-      </Route>
-    </Route>
-  );
+  const routeConfig = [
+    { path: '/',
+      component: App,
+      indexRoute: { component: Index },
+      childRoutes: [
+        { path: 'home', component: Home },
+        { onEnter: redirectToDashboard,
+          childRoutes: [
+            { path: 'login', component: LoginPage },
+            { path: 'register', component: RegisterPage }
+          ]
+        },
+        { onEnter: redirectToLogin,
+          childRoutes: [
+            { path: 'dashboard', component: Dashboard },
+            { path: 'hall', component: Hall },
+            { path: 'room/:id', component: Room }
+          ]
+        }
+      ]
+    }
+  ];
+
+  return loadExtensionsPages(routeConfig, activeExtensions);
 };

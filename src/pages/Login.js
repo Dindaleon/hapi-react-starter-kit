@@ -5,15 +5,25 @@ import Login from '../components/auth/Login';
 
 export default class LoginPage extends Component {
   render() {
-    const { login, loadLocale, pushState } = this.props.children;
+    const {
+      dispatch,
+      setAllExtensionsDataLoaded,
+      login,
+      loadLocale,
+      pushState,
+      globalState
+    } = this.props.children;
     return (
       <StyleRoot id="LoginPage">
         <Helmet title="Login" />
         <h1>Please Login:</h1>
         <Login
+          dispatch={ dispatch }
+          globalState={ globalState }
           login={ login }
           loadLocale={ loadLocale }
-          pushState={ pushState } />
+          pushState={ pushState }
+          setAllExtensionsDataLoaded={ setAllExtensionsDataLoaded } />
       </StyleRoot>
     );
   }

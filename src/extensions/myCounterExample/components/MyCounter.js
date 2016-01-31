@@ -12,11 +12,11 @@ class Counter extends Component {
         { ' ' }
         <Theme render="Button" onClick={ increment }>+</Theme>
         { ' ' }
-        <Theme render="Button"  onClick={ decrement }>-</Theme>
+        <Theme render="Button" onClick={ decrement }>-</Theme>
         { ' ' }
-        <Theme render="Button"  onClick={ incrementIfOdd }>Increment if odd</Theme>
+        <Theme render="Button" onClick={ incrementIfOdd }>Increment if odd</Theme>
         { ' ' }
-        <Theme render="Button"  onClick={ () => incrementAsync() }>Increment async</Theme>
+        <Theme render="Button" onClick={ () => incrementAsync() }>Increment async</Theme>
       </StyleRoot>
     );
   }

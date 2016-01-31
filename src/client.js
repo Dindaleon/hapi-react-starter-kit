@@ -1,7 +1,7 @@
 // import libraries
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { Router } from 'react-router';
 import {
   ReduxRouter,
   reduxReactRouter
@@ -27,7 +27,14 @@ import './globals';
 const client = new ApiClient();
 const initialState = window.__INITIAL_STATE__;
 const activeExtensions = initialState.extensions.enabled;
-const store = configureStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), activeExtensions, createHistory, client, initialState);
+const store = configureStore(
+  reduxReactRouter,
+  makeRouteHooksSafe(getRoutes, activeExtensions),
+  activeExtensions,
+  createHistory,
+  client,
+  initialState
+);
 const root = document.getElementById('root');
 
 if ( __DEVELOPMENT__ ) {
@@ -53,7 +60,7 @@ const run = () => {
     <Provider store = { store } key="provider">
        <ConnectedIntlProvider>
         <ReduxRouter
-          children = { getRoutes(store) } />
+          children = { <Router routes={ getRoutes(store, activeExtensions) } />  } />
       </ConnectedIntlProvider>
     </Provider>,
     root

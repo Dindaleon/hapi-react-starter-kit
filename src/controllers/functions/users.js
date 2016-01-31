@@ -34,10 +34,11 @@ const users = {
       id: 0,
       username: request.payload.username,
       email: request.payload.email,
-      password: request.payload.password
+      password: request.payload.password,
+      scope: 'user'
     };
     const multi = client.multi();
-    multi
+    return multi
       .sismember(key + ':unique:usernames', user.username)
       .sismember(key + ':unique:emails', user.email)
       .execAsync()
@@ -47,13 +48,13 @@ const users = {
         } else if ( res[1] === 1 ) { // if email exists. return email
           return callback(user.email);
         }
-        client
+        return client
         .incrAsync(key + ':seq')
         .then( id => {
           // Add id tu user object
           user.id = id;
           // Hash user password
-          Iron.sealAsync(
+          return Iron.sealAsync(
             user.password,
             config.iron.secret,
             Iron.defaults
@@ -64,7 +65,7 @@ const users = {
             // registration was successful
             const unsealedPass = user.password;
             user.password = sealed;
-            multi
+            return multi
             .hmset(key + ':data:' + id, user)
             .sadd(key + ':unique:ids', id)
             .sadd(key + ':unique:usernames', user.username)
@@ -137,7 +138,7 @@ const users = {
     // TODO: improve user swtich locale
     // perhaps implement a dedicated function
     if ( switchLocale ) {
-      client.sismemberAsync(key + ':unique:ids', user.id)
+      return client.sismemberAsync(key + ':unique:ids', user.id)
       .then( () => {
         return client.hsetAsync(key + ':data:' + user.id, 'locale', request.payload.locale)
         .then( () => {
@@ -152,80 +153,67 @@ const users = {
         console.error('Error finding user: ', e.stack);
         return callback(null);
       });
-    } else {
+    }
     // Return if locale has been updated.
-      client.sismemberAsync(key + ':unique:ids', user.id)
-      .then( exists => {
-        if (exists) {
-          client.hgetallAsync(key + ':data:' + user.id)
-          .then( _user => {
-            const multi = client.multi();
-            multi
-              .sismember(key + ':unique:usernames', user.username)
-              .sismember(key + ':unique:emails', user.email)
-              .execAsync()
-              .then( res => {
-                if ( res[0] === 1 && _user.username !== user.username ) {
-                  return callback({
-                    error: 'username',
-                    username: user.username
-                  });
-                } else if ( res[1] === 1 && _user.email !== user.email ) {
-                  return callback({
-                    error: 'email',
-                    email: user.email
-                  });
-                }
-                if (user.username !== null) {
-                  multi
-                    .srem(key + ':unique:usernames', _user.username)
-                    .sadd(key + ':unique:usernames', user.username)
-                    .zrem(key + ':list:usernames', _user.username)
-                    .zadd(key + ':list:usernames', user.id, user.username)
-                    .hdel(key + ':usernames', _user.username)
-                    .hset(key + ':usernames', user.username, user.id)
-                    .execAsync();
-                } else {
-                  user.username = _user.username;
-                  // delete user.username;
-                }
+    return client.sismemberAsync(key + ':unique:ids', user.id)
+    .then( exists => {
+      if (exists) {
+        return client.hgetallAsync(key + ':data:' + user.id)
+        .then( _user => {
+          const multi = client.multi();
+          return multi
+            .sismember(key + ':unique:usernames', user.username)
+            .sismember(key + ':unique:emails', user.email)
+            .execAsync()
+            .then( res => {
+              if ( res[0] === 1 && _user.username !== user.username ) {
+                return callback({
+                  error: 'username',
+                  username: user.username
+                });
+              } else if ( res[1] === 1 && _user.email !== user.email ) {
+                return callback({
+                  error: 'email',
+                  email: user.email
+                });
+              }
+              if (user.username !== null) {
+                multi
+                  .srem(key + ':unique:usernames', _user.username)
+                  .sadd(key + ':unique:usernames', user.username)
+                  .zrem(key + ':list:usernames', _user.username)
+                  .zadd(key + ':list:usernames', user.id, user.username)
+                  .hdel(key + ':usernames', _user.username)
+                  .hset(key + ':usernames', user.username, user.id)
+                  .execAsync();
+              } else {
+                user.username = _user.username;
+                // delete user.username;
+              }
 
-                if (user.email !== null) {
-                  multi
-                    .srem(key + ':unique:emails', _user.email)
-                    .sadd(key + ':unique:emails', user.email)
-                    .zrem(key + ':list:emails', _user.email)
-                    .zadd(key + ':list:emails', user.id, user.email)
-                    .hdel(key + ':emails', _user.email)
-                    .hset(key + ':emails', user.email, user.id)
-                    .execAsync();
-                } else {
-                  user.email = _user.email;
-                  // delete user.email;
-                }
-                // Hash user password
-                if (user.password !== null) {
-                  Iron.sealAsync(
-                    user.password,
-                    config.iron.secret,
-                    Iron.defaults
-                  )
-                  .then( sealed => {
-                    user.password = sealed;
-                    client.hmsetAsync(key + ':data:' + user.id, user)
-                    .then( updated => {
-                      return callback({
-                        ok: updated,
-                        username: user.username,
-                        email: user.email
-                      });
-                    });
-                  }).catch( e => {
-                    console.error('error sealing password: ', e.stack);
-                  });
-                } else {
-                  delete user.password;
-                  client.hmsetAsync(key + ':data:' + user.id, user)
+              if (user.email !== null) {
+                multi
+                  .srem(key + ':unique:emails', _user.email)
+                  .sadd(key + ':unique:emails', user.email)
+                  .zrem(key + ':list:emails', _user.email)
+                  .zadd(key + ':list:emails', user.id, user.email)
+                  .hdel(key + ':emails', _user.email)
+                  .hset(key + ':emails', user.email, user.id)
+                  .execAsync();
+              } else {
+                user.email = _user.email;
+                // delete user.email;
+              }
+              // Hash user password
+              if (user.password !== null) {
+                return Iron.sealAsync(
+                  user.password,
+                  config.iron.secret,
+                  Iron.defaults
+                )
+                .then( sealed => {
+                  user.password = sealed;
+                  return client.hmsetAsync(key + ':data:' + user.id, user)
                   .then( updated => {
                     return callback({
                       ok: updated,
@@ -233,16 +221,26 @@ const users = {
                       email: user.email
                     });
                   });
-                }
+                }).catch( e => {
+                  console.error('error sealing password: ', e.stack);
+                });
+              }
+              delete user.password;
+              return client.hmsetAsync(key + ':data:' + user.id, user)
+              .then( updated => {
+                return callback({
+                  ok: updated,
+                  username: user.username,
+                  email: user.email
+                });
               });
-          }).catch( e => {
-            console.error('error: ', e.stack);
-          });
-        } else {
-          return callback(null);
-        }
-      });
-    }
+            });
+        }).catch( e => {
+          console.error('error: ', e.stack);
+        });
+      }
+      return callback(null);
+    });
   },
   /**
    *  Delete a user
@@ -404,7 +402,8 @@ const users = {
                         encrypted: sealed,
                         sessionId: user.session.id,
                         accessToken: user.session.accessToken,
-                        refreshToken: user.session.refreshToken
+                        refreshToken: user.session.refreshToken,
+                        scope: _user.scope
                       });
                     }).catch( e => {
                       console.error('error: ', e.stack);
@@ -608,7 +607,8 @@ const users = {
                       email: user.email,
                       locale: _user.locale,
                       sessionId: user.session.id,
-                      accessToken: user.session.accessToken
+                      accessToken: user.session.accessToken,
+                      scope: _user.scope
                     };
                     return callback(response);
                   }).catch( e => {

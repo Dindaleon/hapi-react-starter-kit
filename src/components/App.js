@@ -3,11 +3,19 @@ import { StyleRoot } from 'radium';
 import Promise from 'bluebird';
 import Helmet from 'react-helmet';
 import Layout from '../components/Layout';
-import { load, isAuthLoaded } from '../actions/userActions';
+import {
+  load,
+  isAuthLoaded
+} from '../actions/userActions';
 import { loadLocale } from '../actions/localeActions';
+import {
+  allExtensionsDataLoaded,
+  allExtensionsDataCleared,
+  setAllExtensionsDataLoaded
+} from '../actions/extensionsActions';
 import connectData from '../helpers/connectData';
+import loadExtensionsData from '../helpers/loadExtensionsData';
 import { ThemeBody } from '../themes';
-
 import config from '../config';
 
 const fetchData = (getState, dispatch) => {
@@ -28,7 +36,17 @@ const fetchData = (getState, dispatch) => {
   return Promise.all(promises);
 };
 
-@connectData( fetchData )
+const fetchDataDeferred = (getState, dispatch) => {
+  // Here we load all the required data for the extensions
+  if (!allExtensionsDataLoaded(getState()) && !allExtensionsDataCleared(getState())) {
+    return loadExtensionsData(getState(), dispatch)
+    .then( () => {
+      dispatch(setAllExtensionsDataLoaded(true));
+    });
+  }
+};
+
+@connectData( fetchData, fetchDataDeferred )
 class App extends Component {
   state = {
     watchId: 0

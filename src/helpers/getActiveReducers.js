@@ -45,4 +45,27 @@ const getActiveExtensions = () => {
   });
 };
 
+const getActiveExtensionsSync = () => {
+  const activeExtensions = [];
+  const extensionsPath = path.resolve(__dirname, '../extensions');
+  const extensionFolderNames = fs.readdirSync(extensionsPath);
+  extensionFolderNames.map( extensionFolderName => {
+    const pathToExtension = path.resolve(extensionsPath, extensionFolderName);
+    const stat = fs.statSync(pathToExtension);
+    let isActive = false;
+    if (stat.isDirectory()) {
+      try {
+        isActive = require(pathToExtension).default.active;
+      } catch (e) {
+        // index not found.
+      }
+    }
+    if (isActive) {
+      activeExtensions.push(extensionFolderName);
+    }
+  });
+  return activeExtensions;
+};
+
+export { getActiveExtensionsSync };
 export default getActiveExtensions;

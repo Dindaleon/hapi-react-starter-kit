@@ -21,7 +21,8 @@ const initialState = {
     id: 0,
     locale: config.user.locale,
     sessionId: 0,
-    username: null
+    username: null,
+    scope: 'guest'
   }
 };
 

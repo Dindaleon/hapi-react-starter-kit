@@ -13,7 +13,20 @@ import config from '../config';
 injectTapEventPlugin();
 class Layout extends Component {
   render() {
-    const { dispatch, router, user, logout, loadLocale, setLocale, pushState } = this.props;
+    const {
+      cleanRoomsList,
+      dispatch,
+      setAllExtensionsDataCleared,
+      setAllExtensionsDataLoaded,
+      extensions,
+      router,
+      user,
+      logout,
+      loadLocale,
+      pushState,
+      setLocale,
+      globalState
+    } = this.props;
     const childrenProps = this.props;
     const childrenWithProps = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, { 'children': childrenProps });
@@ -21,21 +34,27 @@ class Layout extends Component {
     return (
       <div id="layout">
         <AppBar title={ { text: config.app.title, to: '/' } } />
-        <Menu sessionId={ user.sessionId } pushState={ pushState } router={ router } />
+        <Menu extensions={ extensions } sessionId={ user.sessionId } pushState={ pushState } router={ router } />
         <br />
         SESSIONID: { user.sessionId ? user.sessionId : 'null' }
         <br />
         YOUR COORDINATES: { 'LAT:' + user.coordinates.latitude + ' LNG:' + user.coordinates.longitude }
         <SwitchLocale { ...this.props } />
         <RenderExtension name="styleSwitcher" />
+        <br />
+        <RenderExtension name="paypalPayments" />
         { user.sessionId ?
           <Logout
+            cleanRoomsList={ cleanRoomsList }
             dispatch={ dispatch }
+            setAllExtensionsDataCleared={ setAllExtensionsDataCleared }
+            setAllExtensionsDataLoaded={ setAllExtensionsDataLoaded }
             sessionId={ user.sessionId }
             logout={ logout }
             loadLocale={ loadLocale }
+            pushState={ pushState }
             setLocale={ setLocale }
-            pushState={ pushState } /> : ''
+            globalState={ globalState } /> : ''
         }
 
         { /* this.props.children */}
@@ -51,13 +70,18 @@ Layout.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]).isRequired,
+  cleanRoomsList: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  setAllExtensionsDataCleared: PropTypes.func.isRequired,
+  setAllExtensionsDataLoaded: PropTypes.func.isRequired,
+  extensions: PropTypes.object.isRequired,
   loadLocale: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   setLocale: PropTypes.func.isRequired,
+  globalState: PropTypes.object.isRequired,
   switchLocale: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };

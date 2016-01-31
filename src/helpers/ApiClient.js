@@ -51,9 +51,7 @@ class _ApiClient {
         let content = '';
 
         if (__SERVER__ && req.headers.cookie) {
-          headers = {
-            Cookie: req.headers.cookie
-          };
+          headers.Cookie = req.headers.cookie;
         }
 
         if (!__SERVER__ && typeof query !== 'undefined') {
@@ -86,7 +84,7 @@ class _ApiClient {
           if ( !response.error ) {
             resolve(response);
           } else {
-            reject(response);
+            reject( new Error(response.error) );
           }
         });
       })

@@ -19,7 +19,7 @@ export default class Hall extends Component {
 
   state = {
     lists: {
-      rooms: this.props.rooms.data.lists || []
+      rooms: []
     }
   };
 
@@ -38,7 +38,7 @@ export default class Hall extends Component {
          typeof this.state.lists.rooms.map === 'function'
         ?
           this.state.lists.rooms.map( (room, index) => {
-            return <li key={ `lists.room.${ index }` }><Link to={ '/rooms/' + room.id }>{ room.name }</Link></li>;
+            return <li key={ `lists.room.${ index }` }><Link to={ '/room/' + room.id }>{ room.name }</Link></li>;
           })
         :
           <FormattedMessage {...messages.noRoomsAvailable} />

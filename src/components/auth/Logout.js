@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { StyleRoot } from 'radium';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { getCookie, deleteCookie } from '../../helpers/cookieTools';
-import { cleanRoomsList } from '../../actions/roomsActions';
 import config from '../../config';
 import Theme from '../../themes';
+import clearExtensionsData from '../../helpers/clearExtensionsData';
 
 const messages = defineMessages({
   logoutButton: {
@@ -16,7 +16,17 @@ const messages = defineMessages({
 
 class Logout extends Component {
   handleLogout = () => {
-    const { dispatch, logout, sessionId, loadLocale, setLocale, pushState } = this.props;
+    const {
+      cleanRoomsList,
+      dispatch,
+      setAllExtensionsDataLoaded,
+      setAllExtensionsDataCleared,
+      logout,
+      sessionId,
+      loadLocale,
+      setLocale,
+      pushState
+    } = this.props;
     logout(sessionId)
     .then(() => {
       if (getCookie(config.user.session.name)) {
@@ -29,10 +39,17 @@ class Logout extends Component {
         // Set default locale after logout
         loadLocale(config.user.locale);
       }
-      // Clean reducers
-      dispatch(cleanRoomsList);
-      pushState(null, '/');
-      return 'Logout Message.';
+      // Clear all extensions data
+      return clearExtensionsData(this.props.globalState, dispatch)
+      .then( () => {
+        setAllExtensionsDataLoaded(false);
+        setAllExtensionsDataCleared(true);
+        // Clean reducers
+        cleanRoomsList();
+        pushState(null, '/');
+      }).catch( e => {
+        console.error('ERROR: There was a problem clearing out extensions\' data.', e.stack);
+      });
     });
   };
   render() {
@@ -45,7 +62,11 @@ class Logout extends Component {
 }
 
 Logout.propTypes = {
+  cleanRoomsList: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
+  setAllExtensionsDataLoaded: PropTypes.func.isRequired,
+  setAllExtensionsDataCleared: PropTypes.func.isRequired,
+  globalState: PropTypes.object.isRequired,
   loadLocale: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,

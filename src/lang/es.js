@@ -1,5 +1,5 @@
 /* eslint-disable max-len,quotes */
-export default {
+const es = {
   "auth.loginButton": "Entrar",
   "auth.logoutButton": "Salir",
   "auth.signupButton": "Regístrate",
@@ -21,3 +21,5 @@ export default {
   "rooms.userIsTyping": "{ name } esta escribiendo...",
   "test": "prueba"
 };
+
+export default es;

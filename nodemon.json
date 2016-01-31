@@ -4,6 +4,8 @@
     "src/api.js",
     "src/issueToken.js",
     "src/server.js",
-    "src/controllers"
+    "src/controllers",
+    "src/controllers/**",
+    "src/extensions/**/controllers/**/**"
   ]
 }

@@ -52,13 +52,21 @@ const styles = {
 };
 
 class TextField extends Component {
-  state = { hasValue: '' };
+  state = { inputValue: '' };
 
-  _handleInputChange = (e) => {
-    this.setState({ hasValue: e.target.value });
-    if (this.props.onChange) {
-      this.props.onChange(e);
+  componentWillMount() {
+    const { value } = this.props;
+    this.setState({ inputValue: value });
+  }
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.value !== this.state.inputValue) {
+      this.setState({ inputValue: nextProps.value });
     }
+  };
+
+  _handleInputChange = event => {
+    this.setState({ inputValue: event.target.value });
+    if (this.props.onChange) this.props.onChange(event);
   };
 
   render() {
@@ -71,6 +79,7 @@ class TextField extends Component {
             this.props.style
           ]
         }
+        value={ this.state.inputValue }
         type={ this.props.type }
         name={ this.props.name }
         placeholder={ this.props.placeholder }
@@ -88,7 +97,10 @@ TextField.propTypes = {
   onClick: PropTypes.func,
   style: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 export default radium(TextField);

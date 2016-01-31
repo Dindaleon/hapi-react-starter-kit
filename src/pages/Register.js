@@ -5,16 +5,27 @@ import Signup from '../components/auth/Signup';
 
 export default class SignupPage extends Component {
   render() {
-    const { register, login, loadLocale, pushState } = this.props.children;
+    const {
+      dispatch,
+      globalState,
+      register,
+      login,
+      loadLocale,
+      pushState,
+      setAllExtensionsDataLoaded
+    } = this.props.children;
     return (
       <StyleRoot id="SignupPage">
         <Helmet title="Create new account" />
         <h1>Please Signup:</h1>
         <Signup
+          dispatch={ dispatch }
+          globalState={ globalState }
           register={ register }
           login={ login }
           loadLocale={ loadLocale }
-          pushState={ pushState } />
+          pushState={ pushState }
+          setAllExtensionsDataLoaded={ setAllExtensionsDataLoaded } />
       </StyleRoot>
     );
   }

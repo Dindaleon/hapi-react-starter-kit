@@ -1,7 +1,3 @@
-import fetch from 'isomorphic-fetch';
-import Promise from 'bluebird';
-Promise.promisifyAll(fetch);
-
 export const LOAD_MESSAGES = 'LOAD_MESSAGES';
 export const LOAD_MESSAGES_SUCCESS = 'LOAD_MESSAGES_SUCCESS';
 export const LOAD_MESSAGES_FAILURE = 'LOAD_MESSAGES_FAILURE';

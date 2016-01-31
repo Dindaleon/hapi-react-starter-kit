@@ -40,11 +40,11 @@ const chat = {
       return callback(null);
     }
     const multi = client.multi();
-    client
+    return client
     .incrAsync(keyRoom + ':seq')
     .then( id => {
       room.id = id;
-      multi
+      return multi
       // insert room data into redis
       .hmset(keyRoom + ':data:' + room.id, room)
       .sadd(keyRoom + ':unique:ids', room.id)

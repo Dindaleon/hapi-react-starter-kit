@@ -26,12 +26,12 @@ class RenderExtension extends Component {
       let component = EmptyComponent;
       if (__SERVER__) {
         if (this.isComponentActive(extensionName)) {
-          component = require('../extensions/' + extensionName + '/containers/index.js').default;
+          component = require('../extensions/' + extensionName + '/containers/index').default;
         }
       } else {
         const req = require.context('../extensions', true);
         if (this.isComponentActive(extensionName)) {
-          component = req('./' + extensionName + '/containers/index.js').default;
+          component = req('./' + extensionName + '/containers/index').default;
         }
       }
       return component;

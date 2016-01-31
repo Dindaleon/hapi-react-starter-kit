@@ -3,7 +3,7 @@ import { createRoutes } from 'react-router/lib/RouteUtils';
 // Wrap the hooks so they don't fire if they're called before
 // the store is initialised. This only happens when doing the first
 // client render of a route that has an onEnter hook
-function makeHooksSafe(routes, store) {
+const makeHooksSafe = (routes, store) => {
   if (Array.isArray(routes)) {
     return routes.map(( route ) => makeHooksSafe(route, store));
   }
@@ -11,7 +11,7 @@ function makeHooksSafe(routes, store) {
   const onEnter = routes.onEnter;
 
   if (onEnter) {
-    routes.onEnter = function safeOnEnter(...args) {
+    routes.onEnter = ( ...args ) => {
       try {
         store.getState();
       } catch (err) {
@@ -36,8 +36,10 @@ function makeHooksSafe(routes, store) {
   }
 
   return routes;
-}
+};
 
-export default function makeRouteHooksSafe(_getRoutes) {
-  return ( store ) => makeHooksSafe(createRoutes(_getRoutes(store)), store);
-}
+const makeRouteHooksSafe = (_getRoutes, activeExtensions) => {
+  return ( store ) => makeHooksSafe(createRoutes(_getRoutes(store, activeExtensions)), store);
+};
+
+export default makeRouteHooksSafe;

@@ -11,6 +11,7 @@ global.__PRODUCTION__ = enviroment === 'production';
 let defaultServerProtcol = 'http://';
 let defaultServerHOST = 'localhost';
 let defaultServerPORT = 3000;
+let defaultServerURI = config.server.deveplopmentUrl;
 let defaultWsHost = 'localhost';
 let defaultWsPort = 4001;
 let defaultRedisHost = 'localhost';
@@ -22,6 +23,7 @@ if ( __PRODUCTION__ ) {
   defaultServerProtcol = config.server.protocol;
   defaultServerHOST = 'localhost';
   defaultServerPORT = 8080;
+  defaultServerURI = config.server.productionUrl;
   defaultWsHost = config.server.ws.host;
   defaultWsPort = config.server.ws.port;
   defaultRedisHost = 'localhost';
@@ -47,6 +49,7 @@ global.PROTOCOL = PROTOCOL;
 // Define server host and port
 global.SERVER_HOST = serverHOST || process.env.HOST || defaultServerHOST; // Defaults to localhost for deveplopment
 global.SERVER_PORT = serverPORT || process.env.PORT || defaultServerPORT;
+global.SERVER_URI = defaultServerURI;
 // Define websockets host and port
 global.WS_HOST = wsHOST || process.env.WSHOST || defaultWsHost;
 global.WS_PORT = wsPORT || process.env.WSPORT || defaultWsPort;

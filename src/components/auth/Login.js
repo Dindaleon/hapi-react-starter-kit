@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { setCookie } from '../../helpers/cookieTools';
 import config from '../../config';
 import Theme from '../../themes';
+import loadExtensionsData from '../../helpers/loadExtensionsData';
 
 const messages = defineMessages({
   loginButton: {
@@ -13,13 +14,14 @@ const messages = defineMessages({
   }
 });
 
-export default class Login extends Component {
+class Login extends Component {
 
   state = {
     userId: 0,
     username: null,
     password: null,
-    loggedIn: false
+    loggedIn: false,
+    resultMessage: ''
   };
 
   handleChangeLoginFields = event => {
@@ -30,36 +32,47 @@ export default class Login extends Component {
 
   handleLogin = event => {
     event.preventDefault();
-
-    const { login, loadLocale, pushState } = this.props;
+    const {
+      dispatch,
+      setAllExtensionsDataLoaded,
+      loadLocale,
+      login,
+      pushState
+    } = this.props;
     const username = this.state.username || null;
     const password = this.state.password || null;
 
     if (username === null) {
-      return console.log('Must enter a username.');
+      return this.setState({ resultMessage: 'Must enter a username.' });
     }
 
     if (password === null) {
-      return console.log('Must enter a password.');
+      return this.setState({ resultMessage: 'Must enter a password.' });
     }
-
     login(username, password)
     .then( action => {
       if ( typeof action.result !== 'undefined' ) {
         loadLocale(action.result.data.locale);
-        setCookie(
-          config.user.session.name, // User session
-          action.result.data.encrypted, // encrypted data
-          config.user.session.ttls // time to live
-        );
-        // Redirect user
-        const redirectTo = config.user.redirectOnLogin || 'dashboard';
-        pushState(null, '/' + redirectTo);
-      } else {
-        // handle error
-        console.error('There was a problem logging in.');
+        // TODO user levels/scopes
+        return loadExtensionsData(this.props.globalState, dispatch)
+        .then( () => {
+          setAllExtensionsDataLoaded(true);
+          setCookie(
+            config.user.session.name, // User session
+            action.result.data.encrypted, // encrypted data
+            config.user.session.ttls // time to live
+          );
+          // Redirect user
+          const redirectTo = config.user.redirectOnLogin || 'dashboard';
+          pushState(null, '/' + redirectTo);
+        }).catch( e => {
+          console.error('ERROR: There was a problem loading extensions\' data.', e.stack);
+        });
       }
-      return 'Message Success/Failure';
+      // handle error
+      return this.setState({ resultMessage: 'There was a problem logging in.' });
+    }).catch( e => {
+      console.error('ERROR: There was a problem logging in.', e.stack);
     });
   };
 
@@ -72,15 +85,20 @@ export default class Login extends Component {
         <Theme render="Button" color="accent" onClick={ this.handleLogin }>
           <FormattedMessage { ...messages.loginButton } />
         </Theme>
+        <br />
+        { this.state.resultMessage }
       </form>
     );
   }
 }
 
 Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  globalState: PropTypes.object.isRequired,
   loadLocale: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired
+  pushState: PropTypes.func.isRequired,
+  setAllExtensionsDataLoaded: PropTypes.func.isRequired
 };
 
 export default radium(Login);

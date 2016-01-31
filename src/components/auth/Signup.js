@@ -3,6 +3,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { setCookie } from '../../helpers/cookieTools';
 import config from '../../config';
 import Theme from '../../themes';
+import loadExtensionsData from '../../helpers/loadExtensionsData';
 
 const messages = defineMessages({
   passwordText: {
@@ -29,7 +30,8 @@ export default class Signup extends Component {
     username: null,
     password: null,
     email: null,
-    loggedIn: false
+    loggedIn: false,
+    resultMessage: ''
   };
 
   handleChangeRegisterFields(event) {
@@ -41,42 +43,57 @@ export default class Signup extends Component {
   handleRegister = event => {
     event.preventDefault();
 
-    const { register, login, loadLocale, pushState } = this.props;
+    const {
+      dispatch,
+      register,
+      login,
+      loadLocale,
+      pushState,
+      setAllExtensionsDataLoaded
+    } = this.props;
     const username = this.state.username || null;
     const password = this.state.password || null;
     const email = this.state.email || null;
     if (username === null) {
-      return console.log('Must enter a username.');
+      return this.setState({ resultMessage: 'Must enter a username.' });
     }
 
     if (password === null) {
-      return console.log('Must enter a password.');
+      return this.setState({ resultMessage: 'Must enter a password.' });
     }
 
     if (email === null) {
-      return console.log('Must enter an email.');
+      return this.setState({ resultMessage: 'Must enter an email.' });
     }
 
-    register( username, password, email ).then( action => {
+    return register( username, password, email )
+    .then( action => {
       if ( typeof action.result !== 'undefined' ) {
+        loadLocale(action.result.data.locale || config.user.locale);
         // Log the user in ig registration is successful
-        login( action.result.data.username, action.result.data.password )
+        return login( action.result.data.username, action.result.data.password )
         .then( action => {
-          // TO DO locale
-          loadLocale(action.result.data.locale || config.user.locale);
-          setCookie(
-            config.user.session.name, // User session
-            action.result.data.encrypted, // encrypted data
-            config.user.session.ttls // time to live
-          );
-          // Redirect user
-          const redirectTo = config.user.redirectOnRegister || 'dashboard';
-          pushState(null, '/' + redirectTo);
+          // TODO user levels/scopes
+          return loadExtensionsData(this.props.globalState, dispatch)
+          .then( () => {
+            setAllExtensionsDataLoaded(true);
+            setCookie(
+              config.user.session.name, // User session
+              action.result.data.encrypted, // encrypted data
+              config.user.session.ttls // time to live
+            );
+            // Redirect user
+            const redirectTo = config.user.redirectOnRegister || 'dashboard';
+            pushState(null, '/' + redirectTo);
+          }).catch( e => {
+            console.error('ERROR: There was a problem loading extensions\' data.', e.stack);
+          });
         });
-      } else {
-        // handle signup error
-        console.error('There was a problem logging in.');
       }
+      // handle signup error
+      return this.setState({ resultMessage: 'There was a problem creating a new account.' });
+    }).catch( e => {
+      console.error('ERROR: There was a problem creating a new account.', e.stack);
     });
   };
 
@@ -89,6 +106,8 @@ export default class Signup extends Component {
         <br />
         <Theme render="TextField" type="text" name="email" value={ this.state.email } placeholder="email" onChange={ ::this.handleChangeRegisterFields } />
         <Theme render="Button" type="submit" onClick={ ::this.handleRegister }><FormattedMessage { ...messages.signupButton } /></Theme>
+        <br />
+        { this.state.resultMessage }
       </form>
     );
   }
@@ -96,8 +115,11 @@ export default class Signup extends Component {
 }
 
 Signup.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  globalState: PropTypes.object.isRequired,
   loadLocale: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  setAllExtensionsDataLoaded: PropTypes.func.isRequired
 };

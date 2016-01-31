@@ -43,20 +43,15 @@ const messages = defineMessages({
 class Room extends Component {
 
   state = {
-    roomId: 0,
     message: '',
     messages: [],
     isTyping: false,
     userTyping: null
   };
 
-  componentWillMount() {
-    this.setState({ roomId: this.props.roomId });
-  }
-
   componentDidMount() {
     const messages = [];
-    this.props.loadMessages(this.state.roomId).then( action => {
+    this.props.loadMessages(this.props.roomId).then( action => {
       action.result.data.messages.map( messageObject => {
         messages.push({
           'username': messageObject.username,

@@ -7,6 +7,7 @@ A hapi React Starter kit with react-router, redux, react-transform
 [![Coverage Status](https://coveralls.io/repos/Dindaleon/hapi-react-starter-kit/badge.svg?branch=master&service=github)](https://coveralls.io/github/Dindaleon/hapi-react-starter-kit?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/16a9c5ea08814e8ebdf1cc64f680b1f3)](https://www.codacy.com/app/Dindaleon/hapi-react-starter-kit)
 [![demo on OpenShift](https://img.shields.io/badge/demo-OpenShift%20--%20online-brightgreen.svg)](http://hapi-reactstarterkit.rhcloud.com)
+[![hapi-react-starter-kit channel on discord](https://img.shields.io/badge/discord-hapi--react--starter--kit%40reactiflux-brightgreen.svg)](https://discordapp.com/channels/142885941055324160/142894394649870336)
 [![npm](https://img.shields.io/npm/v/hapi-react-starter-kit.svg?style=flat-square)](https://www.npmjs.com/package/hapi-react-starter-kit)
 [![NPM](https://nodei.co/npm/hapi-react-starter-kit.png?compact=true)](https://npmjs.org/package/hapi-react-starter-kit)
 
@@ -49,7 +50,7 @@ This repo was inspired by the following projects and their authors
 * Inline CSS Styling - [Radium](https://github.com/FormidableLabs/radium)
 * OpenShift deployment READY.
 
-**_NEW_ Theming System** WIP
+**Theming System** WIP
 * Drop in themes
   - Drop your theme inside the `Themes` folder and it will just work.
 * Theme switcher extension: swtich to other themes on the fly.
@@ -59,13 +60,15 @@ This repo was inspired by the following projects and their authors
   - Alternative (dark theme)
 * Powered by Radium.
 
-**_NEW_ Extensions System** WIP
+**Extensions System** WIP
 * Drop in extensions
   - Drop your extension inside the `Extensions` folder and it will just work.
   - Extensions can have react components and redux reducers.
+  - _new_ Extensions can have pages, translations, and menu items
 * Examples included
   - Counter
   - Theme switcher.
+  - _new_ Paypal Payments
 
 **User Accounts**
 * Create/Update user accounts
@@ -144,6 +147,7 @@ Tests are incomplete.
 * [ ] Implement pages system with routing
 * [ ] Invalidate reducers
 * [ ] More translations
+* [ ] Multiple Session Management
 * [x] Re-structure components and pages
 * [ ] Scaling Redis/Socketio
 * [ ] Social integration with bell for user accounts
