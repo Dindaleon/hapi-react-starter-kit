@@ -10,6 +10,7 @@ export const EXECUTE_PAYMENT_FAILURE = 'EXECUTE_PAYMENT_FAILURE';
 export const CREATE_PAYOUT = 'CREATE_PAYOUT';
 export const CREATE_PAYOUT_SUCCESS = 'CREATE_PAYOUT_SUCCESS';
 export const CREATE_PAYOUT_FAILURE = 'CREATE_PAYOUT_FAILURE';
+export const UPDATE_USER_FUNDS = 'UPDATE_USER_FUNDS';
 export const CLEAR_USER_PAYMENT_DATA = 'CLEAR_USER_PAYMENT_DATA';
 
 export const loadUserPayment = ( user ) => {
@@ -74,6 +75,13 @@ export const createPayout = ( user, amount ) => {
         amount: Number(amount)
       }
     })
+  };
+};
+
+export const updateUserFunds = funds => {
+  return {
+    type: UPDATE_USER_FUNDS,
+    funds
   };
 };
 

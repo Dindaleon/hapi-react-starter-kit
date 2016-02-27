@@ -3,6 +3,7 @@ import {
   CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS, CREATE_PAYMENT_FAILURE,
   EXECUTE_PAYMENT_REQUEST, EXECUTE_PAYMENT_SUCCESS, EXECUTE_PAYMENT_FAILURE,
   CREATE_PAYOUT_REQUEST, CREATE_PAYOUT_SUCCESS, CREATE_PAYOUT_FAILURE,
+  UPDATE_USER_FUNDS,
   CLEAR_USER_PAYMENT_DATA
 } from '../actions';
 
@@ -114,6 +115,14 @@ const payments = (state = initialState, action) => {
         payoutCreated: false,
         payoutreating: false,
         error: action.error.toString()
+      };
+    }
+    case UPDATE_USER_FUNDS: {
+      return {
+        ...state,
+        user_payments: {
+          funds: action.funds
+        }
       };
     }
     case CLEAR_USER_PAYMENT_DATA: {

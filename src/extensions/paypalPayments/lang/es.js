@@ -1,6 +1,6 @@
 /* eslint-disable max-len,quotes */
 const es = {
-  "menuItem.paymentCreate": "Depostiar",
+  "menuItem.paymentCreate": "Depositar",
   "menuItem.paymentPayout": "Retirar"
 };
 
