@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
     this.props.createRoom( _user, _room ).then( action => {
       if ( typeof action.result === 'undefined') {
         // Handle error
-        console.log('User\'s credentials have expired.');
+        // console.log('User\'s credentials have expired.');
       } else {
         const rooms = this.state.lists.rooms;
         rooms.push({
@@ -140,12 +140,15 @@ export default class Dashboard extends Component {
           </Theme>
         </form>
         <ul>
-        {
-          typeof this.state.lists.rooms.map === 'function' ?
-          this.state.lists.rooms.map( (room, index) => {
-            return <li key={ `lists.room.${ index }` }><Link to={ '/room/' + room.id }>{ room.name }</Link></li>;
-          }) : ''
-        }
+          { typeof this.state.lists.rooms.map === 'function' ?
+            this.state.lists.rooms.map( ( room, index ) => {
+              return (
+                <li key={ `lists.room.${index}` }>
+                  <Link to={ '/room/' + room.id }>{ room.name }</Link>
+                </li>
+              );
+            })
+          : null }
         </ul>
       </div>
     );
