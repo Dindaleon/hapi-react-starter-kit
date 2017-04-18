@@ -25,7 +25,7 @@ This repo was inspired by the following projects and their authors
 * [hapi-socketio-redis-chat-example](https://github.com/dwyl/hapi-socketio-redis-chat-example) by [dwyl](https://github.com/dwyl)
 * Scaling Redis/Socketio [redispubsub](https://github.com/rajaraodv/redispubsub)
 
-##Features
+## Features
 * Hapi server framework for Node. - [hapijs](https://github.com/hapijs/hapi)
 * React JS Library for user interfaces. - [reactjs](https://github.com/reactjs)
 * Webpack + [React-transform](https://github.com/gaearon/babel-plugin-react-transform) and [react-transform-hmr](https://github.com/gaearon/react-transform-hmr)
@@ -125,7 +125,7 @@ Tests are incomplete.
 
 [OpenShift Deployment](https://github.com/Dindaleon/hapi-react-starter-kit/blob/master/Guides/OpenShift_Deployment.md)
 
-##Todo
+## Todo
 * [ ] testing, testing, testing...
 * [x] improve redux implementation
 * [x] Testing

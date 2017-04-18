@@ -1,4 +1,4 @@
-#OpenShift Deployment Guide
+# OpenShift Deployment Guide
 
 **IMPORTANT:** First of all, you **MUST** check and set the `host` settings in the config file `./src/config`
 You should see this:
